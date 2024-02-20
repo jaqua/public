@@ -1,0 +1,30 @@
+{
+  "name": "project.de-editor-e2e",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "apps/project.de/editor-e2e/src",
+  "projectType": "application",
+  "targets": {
+    "e2e": {
+      "executor": "@nx/cypress:cypress",
+      "options": {
+        "cypressConfig": "apps/project.de/editor-e2e/cypress.config.ts",
+        "devServerTarget": "project.de-editor:serve:development",
+        "testingType": "e2e"
+      },
+      "configurations": {
+        "production": {
+          "devServerTarget": "project.de-editor:serve:production"
+        }
+      }
+    },
+    "lint": {
+      "executor": "@nx/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["apps/project.de/editor-e2e/**/*.{js,ts}"]
+      }
+    }
+  },
+  "tags": [],
+  "implicitDependencies": ["project.de-editor"]
+}

@@ -1,0 +1,8 @@
+input ValidateUserInput {
+  username: String!
+  password: String!
+}
+
+type Mutation {
+  validateUser(input: ValidateUserInput!): User
+}

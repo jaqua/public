@@ -1,0 +1,18 @@
+query notecardContent($param: NotecardContentParam!) {
+  notecardContent(param: $param) {
+    id
+    title
+    category
+    synonyms
+    intro
+    content
+    updatedAt
+    training {
+      id
+      type
+      time
+      answer
+      result
+    }
+  }
+}

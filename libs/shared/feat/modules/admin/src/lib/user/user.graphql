@@ -1,0 +1,70 @@
+type User {
+  id: ID
+  username: String!
+  password: String!
+  createdAt: Date!
+  roles: [String]
+  projects: [String]
+  professionalGroup: String
+  training: [TrainingCompleted!]
+}
+type TrainingCompleted {
+  id: ID!
+  type: String!
+  answer: String!
+  result: Int!
+  time: Date!
+}
+type UserData {
+  id: ID!
+  username: String!
+  roles: [String!]
+  professionalGroup: String
+}
+
+input UserParam {
+  username: String!
+}
+
+input LoginUserInput {
+  username: String!
+  password: String!
+}
+
+input AddUserInput {
+  username: String!
+  roles: [String]!
+  professionalGroup: String
+}
+
+input UserUpdateInput {
+  username: String!
+  roles: [String]!
+  professionalGroup: String
+}
+
+input RemoveUserInput {
+  username: String!
+}
+
+input ChangePwdInput {
+  username: String!
+  password: String!
+}
+
+input ResetPwdInput {
+  username: String!
+}
+
+type Query {
+  getUsers: [User]
+  getUser(param: UserParam): User
+}
+
+type Mutation {
+  addUser(input: AddUserInput!): ID
+  userUpdate(input: UserUpdateInput!): Boolean
+  removeUser(input: RemoveUserInput!): Boolean
+  changePwd(input: ChangePwdInput!): Boolean
+  resetPwd(input: ResetPwdInput!): Boolean
+}

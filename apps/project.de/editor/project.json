@@ -1,0 +1,70 @@
+{
+  "name": "project.de-editor",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "apps/project.de/editor",
+  "projectType": "application",
+  "targets": {
+    "build": {
+      "executor": "@nx/next:build",
+      "outputs": ["{options.outputPath}"],
+      "defaultConfiguration": "production",
+      "options": {
+        "outputPath": "dist/apps/project.de/editor",
+        "generateLockfile": true
+      },
+      "configurations": {
+        "development": {
+          "outputPath": "apps/project.de/editor"
+        },
+        "production": {}
+      }
+    },
+    "serve": {
+      "executor": "@nx/next:server",
+      "defaultConfiguration": "development",
+      "options": {
+        "buildTarget": "project.de-editor:build",
+        "dev": true
+      },
+      "configurations": {
+        "development": {
+          "buildTarget": "project.de-editor:build:development",
+          "dev": true,
+          "port": 3042
+        },
+        "production": {
+          "buildTarget": "project.de-editor:build:production",
+          "dev": false
+        }
+      }
+    },
+    "export": {
+      "executor": "@nx/next:export",
+      "options": {
+        "buildTarget": "project.de-editor:build:production"
+      }
+    },
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+      "options": {
+        "jestConfig": "apps/project.de/editor/jest.config.ts",
+        "passWithNoTests": true
+      },
+      "configurations": {
+        "ci": {
+          "ci": true,
+          "codeCoverage": true
+        }
+      }
+    },
+    "lint": {
+      "executor": "@nx/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["apps/project.de/editor/**/*.{ts,tsx,js,jsx}"]
+      }
+    }
+  },
+  "tags": ["scope:project.de", "type:app"]
+}

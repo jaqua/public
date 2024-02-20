@@ -1,0 +1,8 @@
+query Error {
+  error {
+    statusCode
+    message
+    location
+    path
+  }
+}

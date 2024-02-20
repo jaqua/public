@@ -1,0 +1,15 @@
+scalar Date
+
+type WriteResult {
+  nModified: Int
+  nRemoved: Int
+  nInserted: Int
+  n: Int
+  ok: Int
+}
+
+type Result {
+  result: WriteResult
+  insertedIds: [ID!]
+  insertedId: ID
+}

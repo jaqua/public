@@ -1,0 +1,24 @@
+{
+  "name": "shared-feat-layout",
+  "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/shared/feat/layout/src",
+  "projectType": "library",
+  "tags": ["scope:shared", "type:feature"],
+  "targets": {
+    "lint": {
+      "executor": "@nx/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["libs/shared/feat/layout/**/*.{ts,tsx,js,jsx}"]
+      }
+    },
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/libs/shared/feat/layout"],
+      "options": {
+        "jestConfig": "libs/shared/feat/layout/jest.config.ts",
+        "passWithNoTests": true
+      }
+    }
+  }
+}

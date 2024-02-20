@@ -1,0 +1,27 @@
+type ContentStatus {
+  timestamp: Int
+  user: String
+}
+
+type ContentDataset {
+  id: ID!
+  title: String!
+  slug: String!
+  category: [String]
+  synonyms: [String]
+  type: String
+  isEdited: ContentStatus
+  isReviewed: ContentStatus
+  isFinalized: ContentStatus
+  communicationIsClosed: Boolean
+}
+
+input SearchParam {
+  term: String!
+  target: String!
+}
+
+type Query {
+  search(param: SearchParam!): [ContentDataset]
+  getList(type: String!): [ContentDataset]
+}

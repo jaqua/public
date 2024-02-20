@@ -1,0 +1,10 @@
+type Error {
+  statusCode: Int
+  message: String
+  location: String
+  path: String
+}
+
+type Query {
+  error: Error
+}

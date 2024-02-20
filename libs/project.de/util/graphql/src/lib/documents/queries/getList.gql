@@ -1,0 +1,8 @@
+query getList($type: String!) {
+  getList(type: $type) {
+    id
+    title
+    slug
+    type
+  }
+}

@@ -1,0 +1,3 @@
+mutation notecardRemove($input: NotecardRemoveInput!) {
+  notecardRemove(input: $input)
+}

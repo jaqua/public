@@ -1,0 +1,24 @@
+{
+  "name": "shared-util-mongodb",
+  "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/shared/util/mongodb/src",
+  "projectType": "library",
+  "targets": {
+    "lint": {
+      "executor": "@nx/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["libs/shared/util/mongodb/**/*.ts"]
+      }
+    },
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/libs/shared/util/mongodb"],
+      "options": {
+        "jestConfig": "libs/shared/util/mongodb/jest.config.ts",
+        "passWithNoTests": true
+      }
+    }
+  },
+  "tags": ["scope:shared", "type:util"]
+}

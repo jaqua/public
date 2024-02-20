@@ -1,0 +1,13 @@
+{
+  "presets": [
+    [
+      "@nx/js/babel",
+      {
+        "useBuiltIns": "usage",
+        "classProperties": {
+          "loose": false
+        }
+      }
+    ]
+  ]
+}

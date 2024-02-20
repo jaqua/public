@@ -8,13 +8,116 @@
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "importHelpers": true,
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
     "target": "es2015",
     "module": "esnext",
-    "lib": ["es2020", "dom"],
+    "typeRoots": ["node_modules/@types"],
+    "lib": ["es2017", "es2019", "dom"],
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
-    "paths": {}
+    "paths": {
+      "@jaqua/auth": ["libs/shared/data-access/auth/src/index.ts"],
+      "@jaqua/config": ["libs/shared/util/config/src/index.ts"],
+      "@jaqua/db": ["libs/shared/data-access/db/src/index.ts"],
+
+      "@jaqua/modules/common": ["libs/shared/feat/modules/common/src/index.ts"],
+      "@jaqua/project.de/cache": [
+        "libs/project.de/util/cache/src/index.ts"
+      ],
+      "@jaqua/project.de/config": [
+        "libs/project.de/util/config/src/index.ts"
+      ],
+      "@jaqua/project.de/config/server": [
+        "libs/project.de/util/config/src/server.ts"
+      ],
+      "@jaqua/project.de/factories": [
+        "libs/project.de/util/factories/src/index.ts"
+      ],
+      "@jaqua/project.de/feat/param": [
+        "libs/project.de/feat/param/src/index.ts"
+      ],
+      "@jaqua/project.de/graphql": [
+        "libs/project.de/util/graphql/src/index.ts"
+      ],
+      "@jaqua/project.de/theme": [
+        "libs/project.de/util/theme/src/index.ts"
+      ],
+      "@jaqua/project.de/theme/server": [
+        "libs/project.de/util/theme/src/server.ts"
+      ],
+      "@jaqua/project.de/util/chart": [
+        "libs/project.de/util/chart/src/index.ts"
+      ],
+      "@jaqua/project.de/util/diagram": [
+        "libs/project.de/util/diagram/src/index.ts"
+      ],
+      "@jaqua/project.de/util/notecard": [
+        "libs/project.de/util/notecard/src/index.ts"
+      ],
+      "@jaqua/regex": ["libs/shared/util/regex/src/index.ts"],
+      "@jaqua/shared/data-access-mongo-db": [
+        "libs/shared/data-access-mongo-db/src/index.ts"
+      ],
+      "@jaqua/shared/feat/admin": ["libs/shared/feat/admin/src/index.ts"],
+      "@jaqua/shared/feat/backend": ["libs/shared/feat/backend/src/index.ts"],
+      "@jaqua/shared/feat/form": ["libs/shared/feat/form/src/index.ts"],
+      "@jaqua/shared/feat/layout": ["libs/shared/feat/layout/src/index.ts"],
+      "@jaqua/shared/feat/login": ["libs/shared/feat/login/src/index.ts"],
+      "@jaqua/shared/feat/wrapper": ["libs/shared/feat/wrapper/src/index.ts"],
+      "@jaqua/shared/graphql": ["libs/shared/util/graphql/src/index.ts"],
+      "@jaqua/shared/modules/admin": [
+        "libs/shared/feat/modules/admin/src/index.ts"
+      ],
+      "@jaqua/shared/modules/article": [
+        "libs/shared/feat/modules/article/src/index.ts"
+      ],
+      "@jaqua/shared/modules/upload": [
+        "libs/shared/feat/modules/upload/src/index.ts"
+      ],
+      "@jaqua/shared/util/action": ["libs/shared/util/action/src/index.ts"],
+      "@jaqua/shared/util/apollo-link": [
+        "libs/shared/util/apollo-link/src/index.ts"
+      ],
+      "@jaqua/shared/util/article": ["libs/shared/util/article/src/index.ts"],
+      "@jaqua/shared/util/auth": ["libs/shared/util/auth/src/index.ts"],
+      "@jaqua/shared/util/auth-guard": [
+        "libs/shared/util/auth-guard/src/index.ts"
+      ],
+      "@jaqua/shared/util/calculation": [
+        "libs/shared/util/calculation/src/index.ts"
+      ],
+      "@jaqua/shared/util/check": ["libs/shared/util/check/src/index.ts"],
+      "@jaqua/shared/util/cookie": ["libs/shared/util/cookie/src/index.ts"],
+      "@jaqua/shared/util/date": ["libs/shared/util/date/src/index.ts"],
+      "@jaqua/shared/util/factories": [
+        "libs/shared/util/factories/src/index.ts"
+      ],
+      "@jaqua/shared/util/formatting": [
+        "libs/shared/util/formatting/src/index.ts"
+      ],
+      "@jaqua/shared/util/generator": [
+        "libs/shared/util/generator/src/index.ts"
+      ],
+      "@jaqua/shared/util/image-processing": [
+        "libs/shared/util/image-processing/src/index.ts"
+      ],
+      "@jaqua/shared/util/media": ["libs/shared/util/media/src/index.ts"],
+      "@jaqua/shared/util/mongodb": ["libs/shared/util/mongodb/src/index.ts"],
+      "@jaqua/shared/util/parsing": ["libs/shared/util/parsing/src/index.ts"],
+      "@jaqua/shared/util/references": [
+        "libs/shared/util/references/src/index.ts"
+      ],
+      "@jaqua/shared/util/review": ["libs/shared/util/review/src/index.ts"],
+      "@jaqua/shared/util/testing": ["libs/shared/util/testing/src/index.ts"],
+      "@jaqua/shared/util/theme": ["libs/shared/util/theme/src/index.ts"],
+      "@jaqua/shared/util/user": ["libs/shared/util/user/src/index.ts"],
+      "@jaqua/shared/util/validation": [
+        "libs/shared/util/validation/src/index.ts"
+      ],
+    }
   },
+  "files": [],
   "exclude": ["node_modules", "tmp"]
 }

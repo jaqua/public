@@ -1,0 +1,24 @@
+{
+  "name": "shared-util-theme",
+  "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/shared/util/theme/src",
+  "projectType": "library",
+  "targets": {
+    "lint": {
+      "executor": "@nx/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["libs/shared/util/theme/**/*.ts"]
+      }
+    },
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/libs/shared/util/theme"],
+      "options": {
+        "jestConfig": "libs/shared/util/theme/jest.config.ts",
+        "passWithNoTests": true
+      }
+    }
+  },
+  "tags": ["scope:shared", "type:util"]
+}

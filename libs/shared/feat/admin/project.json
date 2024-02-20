@@ -1,0 +1,24 @@
+{
+  "name": "shared-feat-admin",
+  "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/shared/feat/admin/src",
+  "projectType": "library",
+  "tags": ["scope:shared", "type:feature"],
+  "targets": {
+    "lint": {
+      "executor": "@nx/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["libs/shared/feat/admin/**/*.{ts,tsx,js,jsx}"]
+      }
+    },
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/libs/shared/feat/admin"],
+      "options": {
+        "jestConfig": "libs/shared/feat/admin/jest.config.ts",
+        "passWithNoTests": true
+      }
+    }
+  }
+}

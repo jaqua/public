@@ -1,0 +1,24 @@
+{
+  "name": "shared-util-date",
+  "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/shared/util/date/src",
+  "projectType": "library",
+  "targets": {
+    "lint": {
+      "executor": "@nx/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["libs/shared/util/date/**/*.ts"]
+      }
+    },
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/libs/shared/util/date"],
+      "options": {
+        "jestConfig": "libs/shared/util/date/jest.config.ts",
+        "passWithNoTests": true
+      }
+    }
+  },
+  "tags": ["scope:shared", "type:util"]
+}

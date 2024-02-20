@@ -1,0 +1,53 @@
+type Notecard {
+  id: ID!
+  title: String!
+  slug: String!
+  category: [String!]
+  synonyms: [String!]
+  intro: String
+  content: String
+  type: String
+  createdAt: Date
+  updatedAt: Date
+  training: TrainingCompleted
+}
+
+input NotecardContentParam {
+  name: String!
+  value: String!
+  testId: ID
+}
+
+input NotecardAddInput {
+  title: String!
+  category: [String!]
+  synonyms: [String!]
+  intro: String
+  type: String!
+  content: String!
+}
+
+input NotecardUpdateInput {
+  id: ID!
+  title: String!
+  category: [String!]
+  synonyms: [String!]
+  intro: String
+  type: String
+  content: String!
+}
+
+input NotecardRemoveInput {
+  id: ID!
+}
+
+type Query {
+  notecardList: [Notecard]
+  notecardContent(param: NotecardContentParam!): Notecard
+}
+
+type Mutation {
+  notecardAdd(input: NotecardAddInput!): String
+  notecardUpdate(input: NotecardUpdateInput!): Int
+  notecardRemove(input: NotecardRemoveInput!): Boolean
+}

@@ -1,0 +1,6 @@
+type Status {
+  isCompleted: Boolean
+  isEdited: Boolean
+  isReviewed: Boolean
+  isFinalized: Boolean
+}

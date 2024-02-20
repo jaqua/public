@@ -1,0 +1,37 @@
+{
+  "name": "shared-util-graphql",
+  "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/shared/util/graphql/src",
+  "projectType": "library",
+  "targets": {
+    "lint": {
+      "executor": "@nx/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["libs/shared/util/graphql/**/*.ts"]
+      }
+    },
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/libs/shared/util/graphql"],
+      "options": {
+        "jestConfig": "libs/shared/util/graphql/jest.config.ts",
+        "passWithNoTests": true
+      }
+    },
+    "generate": {
+      "executor": "nx:run-commands",
+      "options": {
+        "commands": [
+          {
+            "command": "ts-node tools/scripts/typings/shared-generate-typings.ts"
+          },
+          {
+            "command": "npx graphql-codegen --config libs/shared/util/graphql/codegen.yml"
+          }
+        ]
+      }
+    }
+  },
+  "tags": ["scope:shared", "type:util"]
+}

@@ -1,0 +1,63 @@
+.menuBtn {
+  --t: 150ms;
+  --angle: 45deg;
+  --angle_negative: -45deg;
+  --w: 35px;
+  --h: 4px;
+  height: var(--w);
+  width: var(--w);
+  position: relative;
+  cursor: pointer;
+  display: block;
+  margin: 0 1rem;
+}
+.menuBtn > div {
+  border-radius: 2px;
+  box-shadow: 0 0 2px #0005;
+  position: absolute;
+  width: 100%;
+  height: var(--h);
+  background-color: white;
+  transform-origin: center;
+  transition: transform var(--t) linear, top var(--t) linear var(--t),
+    bottom var(--t) linear var(--t), opacity 0.2s linear;
+}
+
+.menuBtn > .first {
+  top: 10%;
+  transform: rotate(0deg);
+}
+.menuBtn > .second {
+  top: calc(50% - 2px);
+  transform: scale(1);
+  opacity: 1;
+  transition-delay: var(--t);
+}
+.menuBtn > .third {
+  bottom: 10%;
+  transform: rotate(0deg);
+}
+
+.menuBtn_active > .first {
+  top: calc(50% - 2px);
+  transform: rotate(var(--angle_negative));
+  transition: 
+			/* transition */ transform var(--t) linear var(--t),
+    /* transition */ top var(--t) linear;
+}
+
+.menuBtn_active > .second {
+  transform: scale(0);
+  opacity: 0;
+  transition: 
+			/* transition */ transform var(--t) linear,
+    /* transition */ opacity 0.2s linear;
+}
+
+.menuBtn_active > .third {
+  bottom: calc(50% - 2px);
+  transform: rotate(var(--angle));
+  transition: 
+			/* transition */ transform var(--t) linear var(--t),
+    /* transition */ bottom var(--t) linear;
+}

@@ -1,4 +1,19 @@
-# Add files here to ignore them from prettier formatting
+coverage
+
 /dist
-/coverage
-/.nx/cache
+/temp
+.next/
+/tools/ci/chart
+/DelSyncFiles
+package.json
+**/page-data.json
+
+nx.json
+nxgraph.json
+workspace.json
+migrations.json
+**/tsconfig.*.json
+**/generated.ts
+graphql-typings.ts
+
+README.md

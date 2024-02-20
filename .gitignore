@@ -39,7 +39,6 @@ testem.log
 Thumbs.db
 
 .nx/cache
-cache
 
 # Next.js
 .next

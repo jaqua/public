@@ -1,0 +1,24 @@
+{
+  "name": "shared-util-auth-guard",
+  "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/shared/util/auth-guard/src",
+  "projectType": "library",
+  "targets": {
+    "lint": {
+      "executor": "@nx/linter:eslint",
+      "options": {
+        "lintFilePatterns": ["libs/shared/util/auth-guard/**/*.ts"]
+      },
+      "outputs": ["{options.outputFile}"]
+    },
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/libs/shared/util/auth-guard"],
+      "options": {
+        "jestConfig": "libs/shared/util/auth-guard/jest.config.ts",
+        "passWithNoTests": true
+      }
+    }
+  },
+  "tags": ["scope:shared", "type:util"]
+}

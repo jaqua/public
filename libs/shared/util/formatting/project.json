@@ -1,0 +1,24 @@
+{
+  "name": "shared-util-formatting",
+  "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/shared/util/formatting/src",
+  "projectType": "library",
+  "generators": {},
+  "targets": {
+    "lint": {
+      "executor": "@nx/linter:eslint",
+      "options": {
+        "lintFilePatterns": ["libs/shared/util/formatting/**/*.ts"]
+      },
+      "outputs": ["{options.outputFile}"]
+    },
+    "test": {
+      "executor": "@nx/jest:jest",
+      "options": {
+        "jestConfig": "libs/shared/util/formatting/jest.config.ts",
+        "passWithNoTests": true
+      }
+    }
+  },
+  "tags": ["scope:shared", "type:util"]
+}

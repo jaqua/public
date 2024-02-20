@@ -1,3 +1,15 @@
 {
-  "singleQuote": true
+  "singleQuote": true,
+  "semi": false,
+  "trailingComma": "none",
+  "importOrder": [
+    "^react(.*)",
+    "<THIRD_PARTY_MODULES>",
+    "^@mui(/.*|$)",
+    "^@jaqua(/.*|$)",
+    "^[./|~/]"
+  ],
+  "importOrderSeparation": true,
+  "importOrderSortSpecifiers": true,
+  "importOrderParserPlugins": ["jsx", "typescript", "decorators-legacy"]
 }
