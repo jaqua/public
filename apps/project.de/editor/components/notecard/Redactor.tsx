@@ -104,6 +104,8 @@ const BaseEditor: React.FC<BaseEditorProps> = ({ content = '', setJson }) => {
     let existingRefIds = []
 
     state.doc.nodesBetween(from, to, (node, pos) => {
+      console.log(from, to, node)
+
       if (!node.marks) return
       node.marks.forEach((mark) => {
         if (mark.type.name === 'refId') {
