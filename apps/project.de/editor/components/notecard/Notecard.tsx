@@ -4,29 +4,31 @@
  * @author        H. Nadir
  * @author        A. Naseem
  */
-import { useCallback, useMemo, useState } from 'react'
-import { useForm, useWatch } from 'react-hook-form'
+import { useCallback, useMemo, useState } from 'react';
+import { useForm, useWatch } from 'react-hook-form';
 
-import { JSONContent } from '@tiptap/react'
 
-import Box from '@mui/material/Box'
-import Container from '@mui/material/Container'
-import Paper from '@mui/material/Paper'
 
-import {
-  Notecard,
-  NotecardAddInput,
-  NotecardContentDocument,
-  NotecardUpdateInput,
-  useNotecardAddMutation,
-  useNotecardUpdateMutation
-} from '@jaqua/project.de/graphql'
-import { converter, getReferences } from '@jaqua/project.de/util/notecard'
+import { JSONContent } from '@tiptap/react';
 
-import ContentBox from './ContentBox'
-import Form from './Form'
-import Raw from './Raw'
-import MainToolbar from './toolbar/Main'
+
+
+import Box from '@mui/material/Box';
+import Container from '@mui/material/Container';
+import Paper from '@mui/material/Paper';
+
+
+
+import { Notecard, NotecardAddInput, NotecardContentDocument, NotecardUpdateInput, useNotecardAddMutation, useNotecardUpdateMutation } from '@jaqua/project.de/graphql';
+import { converter, getReferences } from '@jaqua/project.de/util/notecard';
+
+
+
+import ContentBox from './ContentBox';
+import Form from './Form';
+import Raw from './Raw';
+import MainToolbar from './toolbar/Main';
+
 
 export const useFormattedListFromEditor = () => {
   const [json, setJson] = useState<JSONContent | null>(null)
@@ -79,7 +81,7 @@ export const Editor = ({ data }: Props) => {
     control,
     name: ['title', 'intro']
   })
-
+  console.log('editor json data:', json)
   const submitForm = async (values) => {
     const id = data?.id
     const refIds = [...getReferences(json.content)]

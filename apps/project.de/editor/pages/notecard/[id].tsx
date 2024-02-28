@@ -7,13 +7,11 @@ import React, { useState } from 'react'
 import { useSession } from 'next-auth/react'
 import Head from 'next/head'
 import { useRouter } from 'next/router'
-
 import Backdrop from '@mui/material/Backdrop'
 import CircularProgress from '@mui/material/CircularProgress'
 import Container from '@mui/material/Container'
 import CssBaseline from '@mui/material/CssBaseline'
 import { ThemeProvider } from '@mui/material/styles'
-
 import {
   Alert,
   AppBarComponent as AppBar,
