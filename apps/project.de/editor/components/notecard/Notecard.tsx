@@ -30,11 +30,66 @@ import Raw from './Raw';
 import MainToolbar from './toolbar/Main';
 
 
+const processTableData = (tableData) => {
+  const rows = tableData.content.map((row) => {
+    return {
+      type: row.type,
+      content: row.content.map((cell) => {
+        const flattenedContent = flattenContent(cell.content)
+        return {
+          type: cell.type,
+          attrs: cell.attrs,
+          content: flattenedContent
+        }
+      })
+    }
+  })
+
+  return {
+    type: tableData.type,
+    content: rows
+  }
+}
+
+const flattenContent = (content) => {
+  const flattenedContent = []
+  content.forEach((item) => {
+    if (item.type === 'bulletList') {
+      item.content.forEach((listItem) => {
+        listItem.content.forEach((paragraph) => {
+          if (paragraph.type === 'paragraph') {
+            flattenedContent.push(paragraph)
+          }
+        })
+      })
+    } else if (item.type === 'paragraph') {
+      flattenedContent.push(item)
+    }
+    // Add conditions for other content types if needed
+  })
+  return flattenedContent
+}
 export const useFormattedListFromEditor = () => {
   const [json, setJson] = useState<JSONContent | null>(null)
   const formattedNestedList = useMemo(() => {
     if (!json) return null
-    const formattedJson = Array.isArray(json.content) && json.content[0]
+    // const formattedJson = Array.isArray(json.content) && json.content[0]
+    console.log('JSON content', json.content[0])
+    var formattedJson
+    if (Array.isArray(json.content) && json.content[0].type === 'table') {
+      formattedJson = {
+        type: 'bulletList',
+        content: [
+          {
+            type: 'listItem',
+            content: [processTableData(json.content[0])]
+          }
+        ]
+      }
+    } else {
+      formattedJson = json.content[0]
+    }
+
     return converter(formattedJson)
   }, [json])
 

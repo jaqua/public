@@ -54,8 +54,6 @@ export const RefIdMark = Mark.create({
         // Parse from HTML to read the attribute as an array
         parseHTML: (element) => {
           const refIds = element.getAttribute('data-ref-ids')
-          console.log(refIds)
-
           return refIds ? refIds.split(',').map(String) : []
         }, // Render back to HTML with the attribute
         renderHTML: (attributes) => {
@@ -154,10 +152,10 @@ function formatListItem(
           returnValue.imageId = item?.attrs?.src
           returnValue.title = "Image"
         } else if (item.type === 'table') {
-          console.log("content is table: ", item)
           returnValue.title = "Table"
           returnValue.table = item.content
         } else {
+
           if (!item.content) continue
           const content = genHtml(item).trim()
           const matched = regex.test(content)

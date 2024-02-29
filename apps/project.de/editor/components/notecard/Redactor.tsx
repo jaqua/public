@@ -251,7 +251,6 @@ const BaseEditor: React.FC<BaseEditorProps> = ({ content = '', setJson }) => {
         setOpenImageModal={setOpenImageModal}
         setOpenRefModal={setOpenRefModal}
         numberOfRefIds = {getExistingRefIdsFromSelection().length}
-
       />
 
       <Box
