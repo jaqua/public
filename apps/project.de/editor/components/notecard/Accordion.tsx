@@ -3,16 +3,21 @@
  * @author        Dr. J. Quader
  * @author        A. Naseem
  */
-import ArrowForwardIosSharpIcon from '@mui/icons-material/ArrowForwardIosSharp'
-import MuiAccordion, { AccordionProps } from '@mui/material/Accordion'
-import MuiAccordionDetails from '@mui/material/AccordionDetails'
-import MuiAccordionSummary, {
-  AccordionSummaryProps
-} from '@mui/material/AccordionSummary'
-import Typography from '@mui/material/Typography'
-import { styled } from '@mui/material/styles'
+import Image from 'next/image';
 
-import { TProcessedNodeObj } from '@jaqua/project.de/util/notecard'
+
+
+import ArrowForwardIosSharpIcon from '@mui/icons-material/ArrowForwardIosSharp';
+import MuiAccordion, { AccordionProps } from '@mui/material/Accordion';
+import MuiAccordionDetails from '@mui/material/AccordionDetails';
+import MuiAccordionSummary, { AccordionSummaryProps } from '@mui/material/AccordionSummary';
+import Typography from '@mui/material/Typography';
+import { styled } from '@mui/material/styles';
+
+
+
+import { TProcessedNodeObj } from '@jaqua/project.de/util/notecard';
+
 
 export const StyledAccordion = styled((props: AccordionProps) => (
   <MuiAccordion disableGutters elevation={0} square {...props} />
@@ -78,6 +83,8 @@ export const Accordion = ({ contents }: { contents: Content[] | null }) => {
   const Item = contents.map((item, itemIdx) => {
     if (item) {
       const isTypeItem = item.type === 'item'
+      const isTypeTable = item.title.toLocaleLowerCase() === 'table'
+      const hasImage = item.imageId.length > 0
       const hasDescription =
         isTypeItem &&
         Boolean(item.description) &&
@@ -112,7 +119,21 @@ export const Accordion = ({ contents }: { contents: Content[] | null }) => {
               />
             </StyledAccordionDetails>
           ) : null}
+          {hasImage ? (
+            <StyledAccordionDetails sx={{ width: '100%', padding: '0px' }}>
+              <img src={item.imageId} />
+            </StyledAccordionDetails>
+          ) : null}
 
+          {isTypeTable ? (
+            <StyledAccordionDetails sx={{ width: '100%', padding: '0px' }}>
+              <div className="tiptap">
+                <div className="tableWrapper">
+                  <Table tableData={item?.table} />
+                </div>
+              </div>
+            </StyledAccordionDetails>
+          ) : null}
           {item.type === 'group' && item.items.length > 0 ? (
             <StyledAccordionDetails>
               <div>
@@ -127,3 +148,26 @@ export const Accordion = ({ contents }: { contents: Content[] | null }) => {
   })
   return <div>{Item}</div>
 }
+
+const TableRow = ({ rowData }) => (
+  <tr>
+    {rowData.content.map((cell, index) => {
+      return cell?.type === 'tableHeader' ? <th key={index}>{cell.content.map((paragraph, index) => (
+              <div key={index}>{paragraph.content?.[0]?.text || ''}</div>
+            ))}</th>
+      : <td key={index}>{cell.content.map((paragraph, index) => (
+              <div key={index}>{paragraph.content?.[0]?.text || ''}</div>
+            ))}</td>
+    })}
+  </tr>
+)
+
+const Table = ({ tableData }) => (
+  <table>
+    <tbody>
+      {tableData.map((row, index) => (
+        <TableRow key={index} rowData={row} />
+      ))}
+    </tbody>
+  </table>
+)

@@ -1,12 +1,19 @@
-import React from 'react'
+import React from 'react';
 
-import { ApolloClient, ApolloProvider, InMemoryCache } from '@apollo/client'
-import { getDataFromTree } from '@apollo/client/react/ssr'
-import { SessionProvider } from 'next-auth/react'
-import withApollo, { InitApolloOptions } from 'next-with-apollo'
-import NextApp, { AppProps } from 'next/app'
+
+
+import { ApolloClient, ApolloProvider, InMemoryCache } from '@apollo/client';
+import { getDataFromTree } from '@apollo/client/react/ssr';
+import { SessionProvider } from 'next-auth/react';
+import withApollo, { InitApolloOptions } from 'next-with-apollo';
+import NextApp, { AppProps } from 'next/app';
+
+
 
 import { getLink } from '@jaqua/shared/util/apollo-link'
+
+import './tiptap.css'
+
 
 type Props = AppProps & {
   apollo: ApolloClient<Record<string, unknown>>

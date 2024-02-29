@@ -13,15 +13,18 @@ export type TProcessedNodeObj = {
   title: string
   imageId: string
   refIds: string[]
+  table: any
   context: 'default' | 'info' | 'cave'
   description: string
   items: TProcessedNodeObj[]
-  type: 'group' | 'item'
+  type: 'group' | 'item' | "image" | "table"
+
 }
 
 type Node = {
   type: string
   content: Node[]
+  attrs: any
 }
 const regex = /^&gt;[^\s].*/
 const regexDescriptionDelimiter = /^&gt;/
@@ -51,8 +54,6 @@ export const RefIdMark = Mark.create({
         // Parse from HTML to read the attribute as an array
         parseHTML: (element) => {
           const refIds = element.getAttribute('data-ref-ids')
-          console.log(refIds)
-
           return refIds ? refIds.split(',').map(String) : []
         }, // Render back to HTML with the attribute
         renderHTML: (attributes) => {
@@ -76,15 +77,15 @@ export const RefIdMark = Mark.create({
 const genHtml = (json: JSONContent) =>
   json
     ? generateHTML(json, [
-        StarterKit.configure({
-          bulletList: {
-            keepAttributes: true,
-            keepMarks: true
-          }
-        }),
-        RefIdMark,
-        Image
-      ])
+      StarterKit.configure({
+        bulletList: {
+          keepAttributes: true,
+          keepMarks: true
+        }
+      }),
+      RefIdMark,
+      Image
+    ])
     : ''
 
 function formatBulletList(node: Node, arr: any[] = []) {
@@ -94,13 +95,15 @@ function formatBulletList(node: Node, arr: any[] = []) {
         title: '',
         imageId: '',
         refIds: [],
+        table: [],
         description: '',
         context: 'info',
         items: [],
         type: 'item'
       }
       const v = formatListItem(item, obj, arr)
-      if (v?.title) arr.push(v)
+      // if (v?.title)
+      arr.push(v)
     }
     return arr
   }
@@ -119,6 +122,7 @@ function formatListItem(
     title: '',
     imageId: '',
     refIds: [],
+    table: [],
     description: '',
     context: 'default',
     items: [],
@@ -127,7 +131,7 @@ function formatListItem(
   arr: any[]
 ) {
   try {
-    if (node.type === 'listItem') {
+    if (node.type === 'listItem' || node.type === 'table') {
       let isDescriptionNode = false
       let returnValue = obj
       for (const item of node.content) {
@@ -143,7 +147,15 @@ function formatListItem(
           }
 
           returnValue.items = v ? v : []
+        } else if (item.type === 'image') {
+          // returnValue.title = 'Image'
+          returnValue.imageId = item?.attrs?.src
+          returnValue.title = "Image"
+        } else if (item.type === 'table') {
+          returnValue.title = "Table"
+          returnValue.table = item.content
         } else {
+
           if (!item.content) continue
           const content = genHtml(item).trim()
           const matched = regex.test(content)
@@ -174,6 +186,7 @@ function formatListItem(
               obj.title = titleWithContext
             }
           }
+
         }
       }
       return isDescriptionNode ? null : returnValue

@@ -7,7 +7,6 @@ import React, { useState } from 'react'
 import { useApolloClient } from '@apollo/client'
 import { useSession } from 'next-auth/react'
 import Head from 'next/head'
-
 import AlertTitle from '@mui/material/AlertTitle'
 import Backdrop from '@mui/material/Backdrop'
 import CircularProgress from '@mui/material/CircularProgress'

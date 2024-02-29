@@ -12,11 +12,15 @@ import FormatBoldIcon from '@mui/icons-material/FormatBold'
 import FormatIndentDecreaseIcon from '@mui/icons-material/FormatIndentDecrease'
 import FormatIndentIncreaseIcon from '@mui/icons-material/FormatIndentIncrease'
 import FormatItalicIcon from '@mui/icons-material/FormatItalic'
+import TableViewOutlinedIcon from '@mui/icons-material/TableViewOutlined'
+import { Badge } from '@mui/material'
 import Divider from '@mui/material/Divider'
 import Paper from '@mui/material/Paper'
 import ToggleButton from '@mui/material/ToggleButton'
 import ToggleButtonGroup from '@mui/material/ToggleButtonGroup'
 import { styled } from '@mui/material/styles'
+
+import TableMenu from './TableMenu'
 
 const StyledToggleButtonGroup = styled(ToggleButtonGroup)(({ theme }) => ({
   '& .MuiToggleButtonGroup-grouped': {
@@ -38,11 +42,13 @@ type TEditorMenuProps = {
   setOpenImageModal: React.Dispatch<React.SetStateAction<boolean>>
   setOpenRefModal: React.Dispatch<React.SetStateAction<boolean>>
   editor: Editor | null
+  numberOfRefIds: number
 }
 export default function EditorMenu({
   setOpenImageModal,
   setOpenRefModal,
-  editor
+  editor,
+  numberOfRefIds
 }: TEditorMenuProps) {
   const onToggleBold = () => editor?.commands.toggleBold()
   const onToggleItalic = () => editor?.commands.toggleItalic()
@@ -153,8 +159,11 @@ export default function EditorMenu({
           aria-label="ref"
           onClick={onToggleRef}
         >
-          <BookmarkBorderIcon />
+          <Badge badgeContent={numberOfRefIds} color="primary">
+            <BookmarkBorderIcon />
+          </Badge>
         </ToggleButton>
+        <TableMenu editor={editor} />
       </StyledToggleButtonGroup>
     </Paper>
   )

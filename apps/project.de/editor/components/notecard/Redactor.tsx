@@ -4,19 +4,33 @@
  * @author        H. Nadir
  * @author        A. Naseem
  */
-import { useCallback, useEffect, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react';
 
-import { Editor } from '@tiptap/core'
-import Image from '@tiptap/extension-image'
-import { EditorContent, useEditor } from '@tiptap/react'
-import StarterKit from '@tiptap/starter-kit'
 
-import Box from '@mui/material/Box'
 
-import { RefIdMark } from '@jaqua/project.de/util/notecard'
+import { Editor } from '@tiptap/core';
+import Image from '@tiptap/extension-image';
+import Table from '@tiptap/extension-table';
+import TableCell from '@tiptap/extension-table-cell';
+import TableHeader from '@tiptap/extension-table-header';
+import TableRow from '@tiptap/extension-table-row';
+import { EditorContent, useEditor } from '@tiptap/react';
+import StarterKit from '@tiptap/starter-kit';
 
-import CustomModal from './CustomModal'
-import EditorMenu from './toolbar/Editor'
+
+
+import Box from '@mui/material/Box';
+
+
+
+import { RefIdMark } from '@jaqua/project.de/util/notecard';
+
+
+
+import { CustomTableCell } from './CustomCell';
+import CustomModal from './CustomModal';
+import EditorMenu from './toolbar/Editor';
+
 
 const empty =
   '{"type":"doc","content":[{"type":"bulletList","content":[{"type":"listItem","content":[{"type":"paragraph"}]}]}]}'
@@ -37,7 +51,13 @@ const extensions = [
     }
   }),
   RefIdMark,
-  Image
+  Image,
+  Table.configure({
+    resizable: true
+  }),
+  TableRow,
+  TableHeader,
+  CustomTableCell
 ]
 
 interface BaseEditorProps {
@@ -52,7 +72,6 @@ const BaseEditor: React.FC<BaseEditorProps> = ({ content = '', setJson }) => {
     if (editor && !editor.isActive('bulletList'))
       editor.chain().toggleBulletList().run()
   }, [])
-
   const editorOnUpdateHandler = useCallback(
     (editor: Editor) => {
       const json = editor.getJSON()
@@ -98,14 +117,32 @@ const BaseEditor: React.FC<BaseEditorProps> = ({ content = '', setJson }) => {
       console.log('Editor not initialized')
       return []
     }
-
     const { state } = editor.view
-    const { from, to } = state.selection
+    const { from } = state.selection
+
+    // Initially, assume the current block spans from start to end of the document
+    let startOfBlock = 0,
+      endOfBlock = state.doc.content.size
+
+    // Find the block node that directly contains the selection
+    const resolvePos = state.doc.resolve(from)
+    if (resolvePos.parent.isBlock) {
+      // If the parent node of the selection is a block, use its start and end positions
+      startOfBlock = resolvePos.start()
+      endOfBlock = resolvePos.end()
+    } else {
+      // If the selection is within an inline node, search upwards for the nearest block ancestor
+      for (let d = resolvePos.depth; d > 0; d--) {
+        if (resolvePos.node(d).isBlock) {
+          startOfBlock = resolvePos.start(d)
+          endOfBlock = resolvePos.end(d)
+          break
+        }
+      }
+    }
+
     let existingRefIds = []
-
-    state.doc.nodesBetween(from, to, (node, pos) => {
-      console.log(from, to, node)
-
+    state.doc.nodesBetween(startOfBlock, endOfBlock, (node) => {
       if (!node.marks) return
       node.marks.forEach((mark) => {
         if (mark.type.name === 'refId') {
@@ -115,6 +152,7 @@ const BaseEditor: React.FC<BaseEditorProps> = ({ content = '', setJson }) => {
         }
       })
     })
+
     return existingRefIds
   }
 
@@ -212,6 +250,7 @@ const BaseEditor: React.FC<BaseEditorProps> = ({ content = '', setJson }) => {
         editor={editor}
         setOpenImageModal={setOpenImageModal}
         setOpenRefModal={setOpenRefModal}
+        numberOfRefIds = {getExistingRefIdsFromSelection().length}
       />
 
       <Box
