@@ -184,6 +184,13 @@ const BaseEditor: React.FC<BaseEditorProps> = ({ content = '', setJson }) => {
       return
     }
 
+    if (evt.key === 'Enter') {
+      // Unset 'refId' mark from the current selection
+      if (editor.isActive('refId')) {
+        editor.chain().focus().unsetMark('refId').run();
+      }
+    }
+    
     if (evt.code === 'Backspace') {
       const { selection } = editor.state
       if (selection && selection.empty) {
