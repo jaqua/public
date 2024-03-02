@@ -7,8 +7,8 @@
     "url": "https://repo.jaqua.de/jaqua/public"
   },
   "engines": {
-    "node": "^18",
-    "npm": "^8"
+    "node": "^20",
+    "npm": "^10"
   },
   "scripts": {
     "nx": "nx",
