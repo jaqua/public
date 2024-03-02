@@ -36,7 +36,7 @@ export default function TableMenu({ editor }) {
           'aria-labelledby': 'basic-button'
         }}
       >
-        <MenuItem
+        <MenuItem 
           onClick={() =>
             editor
               .chain()
@@ -47,59 +47,59 @@ export default function TableMenu({ editor }) {
         >
           Insert Table
         </MenuItem>
-        <MenuItem onClick={() => editor.chain().focus().deleteTable().run()}>
+        <MenuItem onClick={() => editor.chain().focus().deleteTable().run()} disabled={!editor.can().deleteTable()}>
           deleteTable
         </MenuItem>
 
         <Divider />
 
-        <MenuItem
+        <MenuItem disabled={!editor.can().addColumnBefore()}
           onClick={() => editor.chain().focus().addColumnBefore().run()}
         >
           addColumnBefore
         </MenuItem>
-        <MenuItem onClick={() => editor.chain().focus().addColumnAfter().run()}>
+        <MenuItem disabled={!editor.can().addColumnAfter()} onClick={() => editor.chain().focus().addColumnAfter().run()}>
           addColumnAfter
         </MenuItem>
-        <MenuItem onClick={() => editor.chain().focus().deleteColumn().run()}>
+        <MenuItem disabled={!editor.can().deleteColumn()} onClick={() => editor.chain().focus().deleteColumn().run()}>
           deleteColumn
         </MenuItem>
 
         <Divider />
 
-        <MenuItem onClick={() => editor.chain().focus().addRowBefore().run()}>
+        <MenuItem disabled={!editor.can().addRowBefore()} onClick={() => editor.chain().focus().addRowBefore().run()}>
           addRowBefore
         </MenuItem>
-        <MenuItem onClick={() => editor.chain().focus().addRowAfter().run()}>
+        <MenuItem disabled={!editor.can().addRowAfter()} onClick={() => editor.chain().focus().addRowAfter().run()}>
           addRowAfter
         </MenuItem>
-        <MenuItem onClick={() => editor.chain().focus().deleteRow().run()}>
+        <MenuItem disabled={!editor.can().deleteRow()} onClick={() => editor.chain().focus().deleteRow().run()}>
           deleteRow
         </MenuItem>
 
         <Divider />
-        {/* <MenuItem onClick={() => editor.chain().focus().mergeCells().run()}>
+        {/* <MenuItem disabled={!editor.can().mergeCells()} onClick={() => editor.chain().focus().mergeCells().run()}>
           mergeCells
         </MenuItem>
-        <MenuItem onClick={() => editor.chain().focus().splitCell().run()}>
+        <MenuItem disabled={!editor.can().splitCell()} onClick={() => editor.chain().focus().splitCell().run()}>
           splitCell
         </MenuItem>
-        <MenuItem onClick={() => editor.chain().focus().mergeOrSplit().run()}>
+        <MenuItem disabled={!editor.can().mergeOrSplit()} onClick={() => editor.chain().focus().mergeOrSplit().run()}>
           mergeOrSplit
         </MenuItem> */}
 
         <Divider />
-        <MenuItem
+        <MenuItem disabled={!editor.can().toggleHeaderColumn()}
           onClick={() => editor.chain().focus().toggleHeaderColumn().run()}
         >
           toggleHeaderColumn
         </MenuItem>
-        <MenuItem
+        <MenuItem disabled={!editor.can().toggleHeaderRow()}
           onClick={() => editor.chain().focus().toggleHeaderRow().run()}
         >
           toggleHeaderRow
         </MenuItem>
-        <MenuItem
+        <MenuItem disabled={!editor.can().toggleHeaderCell()}
           onClick={() => editor.chain().focus().toggleHeaderCell().run()}
         >
           toggleHeaderCell
