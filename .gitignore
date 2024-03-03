@@ -107,7 +107,6 @@ buck-out/
 
 # Bundle artifact
 *.jsbundle
-apps/project.de/mobile-e2e/artifacts
 
 # Ruby / CocoaPods
 **/ios/Pods/
@@ -119,3 +118,4 @@ apps/project.de/mobile-e2e/artifacts
 # testing
 /coverage
 apps/mobile-e2e/artifacts
+apps/project.de/mobile-e2e/artifacts

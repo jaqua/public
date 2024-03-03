@@ -15,3 +15,7 @@ npm run dev
 # Editor
 
 Go to `http://localhost:3042`. Login with `admin/admin`
+
+# Mobile
+
+Run `npx nx start project.de-mobile`

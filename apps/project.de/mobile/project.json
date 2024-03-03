@@ -27,7 +27,7 @@
       "dependsOn": ["ensure-symlink"],
       "outputs": ["{options.bundleOutput}"],
       "options": {
-        "entryFile": "src/main.js",
+        "entryFile": "src/main.tsx",
         "platform": "ios",
         "bundleOutput": "dist/apps/project.de/mobile/ios/main.jsbundle"
       }
@@ -61,7 +61,7 @@
       "dependsOn": ["ensure-symlink"],
       "outputs": ["{options.bundleOutput}"],
       "options": {
-        "entryFile": "src/main.js",
+        "entryFile": "src/main.tsx",
         "platform": "android",
         "bundleOutput": "dist/apps/project.de/mobile/android/main.jsbundle"
       }
@@ -85,7 +85,7 @@
       "executor": "@nx/jest:jest",
       "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
       "options": {
-        "jestConfig": "apps/project.de/mobile/jest.config.js",
+        "jestConfig": "apps/project.de/mobile/jest.config.ts",
         "passWithNoTests": true
       },
       "configurations": {
