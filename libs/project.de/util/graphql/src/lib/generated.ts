@@ -71,6 +71,7 @@ export class Mutation {
   resetPwd?: Maybe<Scalars['Boolean']>;
   userUpdate?: Maybe<Scalars['Boolean']>;
   validateUser?: Maybe<User>;
+  videoRemove?: Maybe<Scalars['Boolean']>;
   videoUpdateContent?: Maybe<Scalars['Int']>;
 };
 
@@ -117,6 +118,11 @@ export class MutationUserUpdateArgs {
 
 export class MutationValidateUserArgs {
   input: ValidateUserInput;
+};
+
+
+export class MutationVideoRemoveArgs {
+  input: VideoRemoveInput;
 };
 
 
@@ -280,6 +286,10 @@ export class Video {
   type: Scalars['String'];
 };
 
+export class VideoRemoveInput {
+  fileId: Scalars['ID'];
+};
+
 export class VideoUpdateContentInput {
   content?: InputMaybe<Scalars['String']>;
   id: Scalars['ID'];
@@ -319,6 +329,13 @@ export type NotecardUpdateMutationVariables = Exact<{
 
 
 export type NotecardUpdateMutation = { __typename?: 'Mutation', notecardUpdate?: number | null };
+
+export type VideoRemoveMutationVariables = Exact<{
+  input: VideoRemoveInput;
+}>;
+
+
+export type VideoRemoveMutation = { __typename?: 'Mutation', videoRemove?: boolean | null };
 
 export type VideoUpdateContentMutationVariables = Exact<{
   input: VideoUpdateContentInput;
@@ -492,6 +509,37 @@ export function useNotecardUpdateMutation(baseOptions?: Apollo.MutationHookOptio
 export type NotecardUpdateMutationHookResult = ReturnType<typeof useNotecardUpdateMutation>;
 export type NotecardUpdateMutationResult = Apollo.MutationResult<NotecardUpdateMutation>;
 export type NotecardUpdateMutationOptions = Apollo.BaseMutationOptions<NotecardUpdateMutation, NotecardUpdateMutationVariables>;
+export const VideoRemoveDocument = gql`
+    mutation videoRemove($input: VideoRemoveInput!) {
+  videoRemove(input: $input)
+}
+    `;
+export type VideoRemoveMutationFn = Apollo.MutationFunction<VideoRemoveMutation, VideoRemoveMutationVariables>;
+
+/**
+ * __useVideoRemoveMutation__
+ *
+ * To run a mutation, you first call `useVideoRemoveMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useVideoRemoveMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [videoRemoveMutation, { data, loading, error }] = useVideoRemoveMutation({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useVideoRemoveMutation(baseOptions?: Apollo.MutationHookOptions<VideoRemoveMutation, VideoRemoveMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<VideoRemoveMutation, VideoRemoveMutationVariables>(VideoRemoveDocument, options);
+      }
+export type VideoRemoveMutationHookResult = ReturnType<typeof useVideoRemoveMutation>;
+export type VideoRemoveMutationResult = Apollo.MutationResult<VideoRemoveMutation>;
+export type VideoRemoveMutationOptions = Apollo.BaseMutationOptions<VideoRemoveMutation, VideoRemoveMutationVariables>;
 export const VideoUpdateContentDocument = gql`
     mutation videoUpdateContent($input: VideoUpdateContentInput!) {
   videoUpdateContent(input: $input)

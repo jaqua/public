@@ -6,7 +6,10 @@
 import { UseGuards } from '@nestjs/common'
 import { Args, Mutation, Resolver } from '@nestjs/graphql'
 
-import { VideoUpdateContentInput } from '@jaqua/project.de/graphql'
+import {
+  VideoRemoveInput,
+  VideoUpdateContentInput
+} from '@jaqua/project.de/graphql'
 import { Roles } from '@jaqua/shared/modules/admin'
 import { GqlAuthGuard, RolesGuard } from '@jaqua/shared/util/auth-guard'
 
@@ -23,5 +26,11 @@ export class VideoResolvers {
     @Args('input') input: VideoUpdateContentInput
   ): Promise<number> {
     return await this.videoService.videoUpdateContent(input)
+  }
+
+  @Mutation(() => String)
+  @Roles('admin')
+  async videoRemove(@Args('input') input: VideoRemoveInput): Promise<boolean> {
+    return await this.videoService.videoRemove(input)
   }
 }

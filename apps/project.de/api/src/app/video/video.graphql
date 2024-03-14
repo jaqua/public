@@ -11,6 +11,11 @@ input VideoUpdateContentInput {
   content: String
 }
 
+input VideoRemoveInput {
+  fileId: ID!
+}
+
 type Mutation {
   videoUpdateContent(input: VideoUpdateContentInput!): Int
+  videoRemove(input: VideoRemoveInput!): Boolean
 }

@@ -20,3 +20,7 @@ export const videoUpdateContent = readFileSync(
   join(__dirname, 'video/videoUpdateContent.gql'),
   'utf8'
 )
+export const videoRemove = readFileSync(
+  join(__dirname, 'video/videoRemove.gql'),
+  'utf8'
+)

@@ -1,0 +1,3 @@
+mutation videoRemove($input: VideoRemoveInput!) {
+  videoRemove(input: $input)
+}

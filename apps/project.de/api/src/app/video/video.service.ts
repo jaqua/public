@@ -6,8 +6,11 @@ import { Inject, Injectable } from '@nestjs/common'
 import { assert } from 'check-types'
 import { Db } from 'mongodb'
 
-import { updateVersion } from '@jaqua/db'
-import { Video, VideoUpdateContentInput } from '@jaqua/project.de/graphql'
+import {
+  Video,
+  VideoRemoveInput,
+  VideoUpdateContentInput
+} from '@jaqua/project.de/graphql'
 
 @Injectable()
 export class VideoService {
@@ -39,9 +42,26 @@ export class VideoService {
         }
       )) || { modifiedCount: 0 }
 
-      if (modifiedCount) await updateVersion(this.db, 'patch')
-
       return modifiedCount
+    } catch (error) {
+      console.error(error)
+    }
+  }
+
+  /**
+   * Remove video content dataset
+   * @param {string} fileId
+   * @returns {boolean}
+   */
+  async videoRemove({ fileId }: VideoRemoveInput): Promise<boolean> {
+    assert.string(fileId)
+
+    const Content = this.db.collection<Video>('content')
+
+    try {
+      const { deletedCount } = await Content.deleteOne({ fileId })
+
+      return deletedCount > 0
     } catch (error) {
       console.error(error)
     }
