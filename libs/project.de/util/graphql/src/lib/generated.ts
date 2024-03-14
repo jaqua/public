@@ -71,6 +71,7 @@ export class Mutation {
   resetPwd?: Maybe<Scalars['Boolean']>;
   userUpdate?: Maybe<Scalars['Boolean']>;
   validateUser?: Maybe<User>;
+  videoUpdateContent?: Maybe<Scalars['Int']>;
 };
 
 
@@ -116,6 +117,11 @@ export class MutationUserUpdateArgs {
 
 export class MutationValidateUserArgs {
   input: ValidateUserInput;
+};
+
+
+export class MutationVideoUpdateContentArgs {
+  input: VideoUpdateContentInput;
 };
 
 export class Notecard {
@@ -170,6 +176,7 @@ export class Query {
   getUsers?: Maybe<Array<Maybe<User>>>;
   notecardContent?: Maybe<Notecard>;
   notecardList?: Maybe<Array<Maybe<Notecard>>>;
+  search?: Maybe<Array<Maybe<ContentDataset>>>;
 };
 
 
@@ -187,6 +194,11 @@ export class QueryNotecardContentArgs {
   param: NotecardContentParam;
 };
 
+
+export class QuerySearchArgs {
+  param: SearchParam;
+};
+
 export class RemoveUserInput {
   username: Scalars['String'];
 };
@@ -200,6 +212,11 @@ export class Result {
   insertedId?: Maybe<Scalars['ID']>;
   insertedIds?: Maybe<Array<Scalars['ID']>>;
   result?: Maybe<WriteResult>;
+};
+
+export class SearchParam {
+  target: Scalars['String'];
+  term: Scalars['String'];
 };
 
 export class Status {
@@ -254,6 +271,20 @@ export class ValidateUserInput {
   username: Scalars['String'];
 };
 
+export class Video {
+  __typename?: 'Video';
+  content?: Maybe<Scalars['String']>;
+  id: Scalars['ID'];
+  slug: Scalars['String'];
+  title: Scalars['String'];
+  type: Scalars['String'];
+};
+
+export class VideoUpdateContentInput {
+  content?: InputMaybe<Scalars['String']>;
+  id: Scalars['ID'];
+};
+
 export class WriteResult {
   __typename?: 'WriteResult';
   n?: Maybe<Scalars['Int']>;
@@ -288,6 +319,13 @@ export type NotecardUpdateMutationVariables = Exact<{
 
 
 export type NotecardUpdateMutation = { __typename?: 'Mutation', notecardUpdate?: number | null };
+
+export type VideoUpdateContentMutationVariables = Exact<{
+  input: VideoUpdateContentInput;
+}>;
+
+
+export type VideoUpdateContentMutation = { __typename?: 'Mutation', videoUpdateContent?: number | null };
 
 export type GetListQueryVariables = Exact<{
   type: Scalars['String'];
@@ -454,6 +492,37 @@ export function useNotecardUpdateMutation(baseOptions?: Apollo.MutationHookOptio
 export type NotecardUpdateMutationHookResult = ReturnType<typeof useNotecardUpdateMutation>;
 export type NotecardUpdateMutationResult = Apollo.MutationResult<NotecardUpdateMutation>;
 export type NotecardUpdateMutationOptions = Apollo.BaseMutationOptions<NotecardUpdateMutation, NotecardUpdateMutationVariables>;
+export const VideoUpdateContentDocument = gql`
+    mutation videoUpdateContent($input: VideoUpdateContentInput!) {
+  videoUpdateContent(input: $input)
+}
+    `;
+export type VideoUpdateContentMutationFn = Apollo.MutationFunction<VideoUpdateContentMutation, VideoUpdateContentMutationVariables>;
+
+/**
+ * __useVideoUpdateContentMutation__
+ *
+ * To run a mutation, you first call `useVideoUpdateContentMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useVideoUpdateContentMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [videoUpdateContentMutation, { data, loading, error }] = useVideoUpdateContentMutation({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useVideoUpdateContentMutation(baseOptions?: Apollo.MutationHookOptions<VideoUpdateContentMutation, VideoUpdateContentMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<VideoUpdateContentMutation, VideoUpdateContentMutationVariables>(VideoUpdateContentDocument, options);
+      }
+export type VideoUpdateContentMutationHookResult = ReturnType<typeof useVideoUpdateContentMutation>;
+export type VideoUpdateContentMutationResult = Apollo.MutationResult<VideoUpdateContentMutation>;
+export type VideoUpdateContentMutationOptions = Apollo.BaseMutationOptions<VideoUpdateContentMutation, VideoUpdateContentMutationVariables>;
 export const GetListDocument = gql`
     query getList($type: String!) {
   getList(type: $type) {

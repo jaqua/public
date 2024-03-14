@@ -1,0 +1,3 @@
+mutation videoUpdateContent($input: VideoUpdateContentInput!) {
+  videoUpdateContent(input: $input)
+}

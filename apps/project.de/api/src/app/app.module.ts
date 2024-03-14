@@ -12,6 +12,7 @@ import { AuthModule, UserModule } from '@jaqua/shared/modules/admin'
 import { AppController } from './app.controller'
 import { NotecardModule } from './notecard/notecard.module'
 import { SearchModule } from './search/search.module'
+import { VideoModule } from './video/video.module'
 
 export const domain = 'project.de'
 
@@ -51,7 +52,8 @@ export const corsOptions = { credentials: true, origin }
     AuthModule,
     UserModule,
     SearchModule,
-    NotecardModule
+    NotecardModule,
+    VideoModule
   ],
   controllers: [AppController]
 })
