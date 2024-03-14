@@ -23,14 +23,13 @@ export const Wrapper: FunctionComponent<Props> = ({ id }) => {
   const { loading, error, data } = useNotecardContentQuery({
     variables: { param: { name: 'id', value: id } }
   })
-  console.log(data, id)
 
   if (loading) return <CircularProgress color="inherit" />
   if (error) return <Alert severity="error">An error occured</Alert>
   if (!data?.notecardContent)
     return <Typography variant="body1">No data existing</Typography>
 
-  return <Editor data={data.notecardContent as Notecard} />
+  return <Editor data={data.notecardContent} />
 }
 
 export default Wrapper
