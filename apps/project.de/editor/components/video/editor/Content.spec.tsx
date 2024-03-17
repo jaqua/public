@@ -18,6 +18,12 @@ import Component, { Props } from './Content'
 const mockUseSession = jest.fn()
 const mockVideoUpdateContent = jest.fn()
 
+jest.mock('mui-chips-input', () => {
+  return {
+    MuiChipsInput: () => 'Dummy MuiChipsInput',
+  };
+});
+
 jest.mock('next-auth/react', () => {
   const originalModule = jest.requireActual('next-auth/react')
   return {
