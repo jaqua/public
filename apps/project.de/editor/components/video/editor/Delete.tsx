@@ -43,7 +43,9 @@ const Delete = ({ fileId }: Props) => {
         }
       })
       await videoRemove({ variables: { input } })
-      router.push('/')
+      if(router){
+        router.push('/')
+      }
     } catch (error) {
       console.error(error)
     }

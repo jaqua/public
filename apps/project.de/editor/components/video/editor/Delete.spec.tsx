@@ -32,6 +32,11 @@ jest.mock('next/router', () => ({
 // jest.mock('material-ui-confirm', () => ({
 //   confirm: () => mockConfirm()
 // }))
+// At the top of your Delete.spec.tsx, adjust the jest.mock call for 'material-ui-confirm'
+jest.mock('material-ui-confirm', () => ({
+  useConfirm: () => jest.fn(() => Promise.resolve()) // Simulates user confirming action
+}));
+
 jest.mock('@jaqua/project.de/graphql', () => ({
   useVideoRemoveMutation: () => [mockVideoRemove]
 }))
@@ -78,3 +83,18 @@ test('should call mutate on click', async () => {
   //   variables: { input: { fileId: props.fileId } }
   // })
 })
+
+// Example test case
+test('should call videoRemove mutation upon confirmation', async () => {
+  // Setup your mocks as before
+  mockUseSession.mockReturnValue(mockedSession('admin'));
+  const user = userEvent.setup();
+  
+  // Render and interact with your component
+  const { getByRole } = renderComponent(props);
+  const button = getByRole('button', { name: /löschen/i });
+  await user.click(button);
+
+  // Since we're simulating a confirmation, we expect the videoRemove function to be called
+  expect(mockVideoRemove).toHaveBeenCalled();
+});
