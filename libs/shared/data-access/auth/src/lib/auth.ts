@@ -18,7 +18,6 @@ export const INITIAL_PWD = 'in1tlp@sswd'
 export const authorize = async ({ username, password }: any): Promise<any> => {
   check.assert.string(username)
   check.assert.string(password)
-  console.log(username, password)
 
   try {
     // Connect to db and get user dataset

@@ -108,7 +108,8 @@
       "@jaqua/shared/util/user": ["libs/shared/util/user/src/index.ts"],
       "@jaqua/shared/util/validation": [
         "libs/shared/util/validation/src/index.ts"
-      ]
+      ],
+      "@jaqua/testing": ["libs/shared/e2e-utils/src/index.ts"]
     }
   },
   "files": [],
