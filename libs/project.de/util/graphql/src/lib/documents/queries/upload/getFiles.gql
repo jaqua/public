@@ -1,0 +1,13 @@
+query getFiles {
+  getFiles {
+    _id
+    metadata {
+      parent
+      fullId
+      smallId
+      thumbnailId
+      height
+      width
+    }
+  }
+}

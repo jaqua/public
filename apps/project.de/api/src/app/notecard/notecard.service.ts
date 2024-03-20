@@ -12,9 +12,9 @@ import {
   NotecardAddInput,
   NotecardContentParam,
   NotecardRemoveInput,
-  NotecardUpdateInput
+  NotecardUpdateInput,
+  User
 } from '@jaqua/project.de/graphql'
-import { User } from '@jaqua/shared/graphql'
 import { generateSlug, getHash } from '@jaqua/shared/util/generator'
 
 @Injectable()

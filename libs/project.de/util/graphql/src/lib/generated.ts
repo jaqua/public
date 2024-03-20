@@ -14,6 +14,7 @@ export class Scalars {
   Int: number;
   Float: number;
   Date: any;
+  Upload: any;
 };
 
 export class AddUserInput {
@@ -55,6 +56,37 @@ export class Error {
   statusCode?: Maybe<Scalars['Int']>;
 };
 
+export class File {
+  __typename?: 'File';
+  _id: Scalars['ID'];
+  chunkSize?: Maybe<Scalars['Int']>;
+  contentType: Scalars['String'];
+  filename: Scalars['String'];
+  length?: Maybe<Scalars['Int']>;
+  metadata?: Maybe<FileMetadata>;
+  uploadDate?: Maybe<Scalars['Date']>;
+};
+
+export class FileMetadata {
+  __typename?: 'FileMetadata';
+  children?: Maybe<Array<Maybe<Scalars['ID']>>>;
+  codec?: Maybe<Scalars['String']>;
+  date?: Maybe<Scalars['Date']>;
+  duration?: Maybe<Scalars['Float']>;
+  editedId?: Maybe<Scalars['ID']>;
+  filename?: Maybe<Scalars['String']>;
+  fullId?: Maybe<Scalars['ID']>;
+  height?: Maybe<Scalars['Int']>;
+  mainId?: Maybe<Scalars['ID']>;
+  name?: Maybe<Scalars['String']>;
+  parent?: Maybe<Scalars['ID']>;
+  smallId?: Maybe<Scalars['ID']>;
+  thumbnailId?: Maybe<Scalars['ID']>;
+  uploadDate?: Maybe<Scalars['Date']>;
+  versionName?: Maybe<Scalars['String']>;
+  width?: Maybe<Scalars['Int']>;
+};
+
 export class LoginUserInput {
   password: Scalars['String'];
   username: Scalars['String'];
@@ -69,6 +101,7 @@ export class Mutation {
   notecardUpdate?: Maybe<Scalars['Int']>;
   removeUser?: Maybe<Scalars['Boolean']>;
   resetPwd?: Maybe<Scalars['Boolean']>;
+  uploadFiles?: Maybe<Array<Maybe<UploadResult>>>;
   userUpdate?: Maybe<Scalars['Boolean']>;
   validateUser?: Maybe<User>;
   videoRemove?: Maybe<Scalars['Boolean']>;
@@ -108,6 +141,12 @@ export class MutationRemoveUserArgs {
 
 export class MutationResetPwdArgs {
   input: ResetPwdInput;
+};
+
+
+export class MutationUploadFilesArgs {
+  bucketName?: InputMaybe<Scalars['String']>;
+  files: Array<Scalars['Upload']>;
 };
 
 
@@ -177,6 +216,7 @@ export class NotecardUpdateInput {
 export class Query {
   __typename?: 'Query';
   error?: Maybe<Error>;
+  getFiles?: Maybe<Array<Maybe<File>>>;
   getList?: Maybe<Array<Maybe<ContentDataset>>>;
   getUser?: Maybe<User>;
   getUsers?: Maybe<Array<Maybe<User>>>;
@@ -240,6 +280,15 @@ export class TrainingCompleted {
   result: Scalars['Int'];
   time: Scalars['Date'];
   type: Scalars['String'];
+};
+
+export class UploadResult {
+  __typename?: 'UploadResult';
+  filename: Scalars['String'];
+  id?: Maybe<Scalars['ID']>;
+  reason?: Maybe<Scalars['String']>;
+  status: Scalars['String'];
+  thumbId?: Maybe<Scalars['ID']>;
 };
 
 export class User {
@@ -330,6 +379,14 @@ export type NotecardUpdateMutationVariables = Exact<{
 
 export type NotecardUpdateMutation = { __typename?: 'Mutation', notecardUpdate?: number | null };
 
+export type UploadFilesMutationVariables = Exact<{
+  files: Array<Scalars['Upload']> | Scalars['Upload'];
+  bucketName?: InputMaybe<Scalars['String']>;
+}>;
+
+
+export type UploadFilesMutation = { __typename?: 'Mutation', uploadFiles?: Array<{ __typename?: 'UploadResult', id?: string | null, thumbId?: string | null, filename: string, status: string, reason?: string | null } | null> | null };
+
 export type VideoRemoveMutationVariables = Exact<{
   input: VideoRemoveInput;
 }>;
@@ -362,6 +419,11 @@ export type NotecardListQueryVariables = Exact<{ [key: string]: never; }>;
 
 
 export type NotecardListQuery = { __typename?: 'Query', notecardList?: Array<{ __typename?: 'Notecard', id: string, title: string, createdAt?: any | null } | null> | null };
+
+export type GetFilesQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type GetFilesQuery = { __typename?: 'Query', getFiles?: Array<{ __typename?: 'File', _id: string, metadata?: { __typename?: 'FileMetadata', parent?: string | null, fullId?: string | null, smallId?: string | null, thumbnailId?: string | null, height?: number | null, width?: number | null } | null } | null> | null };
 
 export type AddUserMutationVariables = Exact<{
   input: AddUserInput;
@@ -509,6 +571,44 @@ export function useNotecardUpdateMutation(baseOptions?: Apollo.MutationHookOptio
 export type NotecardUpdateMutationHookResult = ReturnType<typeof useNotecardUpdateMutation>;
 export type NotecardUpdateMutationResult = Apollo.MutationResult<NotecardUpdateMutation>;
 export type NotecardUpdateMutationOptions = Apollo.BaseMutationOptions<NotecardUpdateMutation, NotecardUpdateMutationVariables>;
+export const UploadFilesDocument = gql`
+    mutation uploadFiles($files: [Upload!]!, $bucketName: String) {
+  uploadFiles(files: $files, bucketName: $bucketName) {
+    id
+    thumbId
+    filename
+    status
+    reason
+  }
+}
+    `;
+export type UploadFilesMutationFn = Apollo.MutationFunction<UploadFilesMutation, UploadFilesMutationVariables>;
+
+/**
+ * __useUploadFilesMutation__
+ *
+ * To run a mutation, you first call `useUploadFilesMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useUploadFilesMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [uploadFilesMutation, { data, loading, error }] = useUploadFilesMutation({
+ *   variables: {
+ *      files: // value for 'files'
+ *      bucketName: // value for 'bucketName'
+ *   },
+ * });
+ */
+export function useUploadFilesMutation(baseOptions?: Apollo.MutationHookOptions<UploadFilesMutation, UploadFilesMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<UploadFilesMutation, UploadFilesMutationVariables>(UploadFilesDocument, options);
+      }
+export type UploadFilesMutationHookResult = ReturnType<typeof useUploadFilesMutation>;
+export type UploadFilesMutationResult = Apollo.MutationResult<UploadFilesMutation>;
+export type UploadFilesMutationOptions = Apollo.BaseMutationOptions<UploadFilesMutation, UploadFilesMutationVariables>;
 export const VideoRemoveDocument = gql`
     mutation videoRemove($input: VideoRemoveInput!) {
   videoRemove(input: $input)
@@ -693,6 +793,48 @@ export function useNotecardListLazyQuery(baseOptions?: Apollo.LazyQueryHookOptio
 export type NotecardListQueryHookResult = ReturnType<typeof useNotecardListQuery>;
 export type NotecardListLazyQueryHookResult = ReturnType<typeof useNotecardListLazyQuery>;
 export type NotecardListQueryResult = Apollo.QueryResult<NotecardListQuery, NotecardListQueryVariables>;
+export const GetFilesDocument = gql`
+    query getFiles {
+  getFiles {
+    _id
+    metadata {
+      parent
+      fullId
+      smallId
+      thumbnailId
+      height
+      width
+    }
+  }
+}
+    `;
+
+/**
+ * __useGetFilesQuery__
+ *
+ * To run a query within a React component, call `useGetFilesQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetFilesQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetFilesQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useGetFilesQuery(baseOptions?: Apollo.QueryHookOptions<GetFilesQuery, GetFilesQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetFilesQuery, GetFilesQueryVariables>(GetFilesDocument, options);
+      }
+export function useGetFilesLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetFilesQuery, GetFilesQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetFilesQuery, GetFilesQueryVariables>(GetFilesDocument, options);
+        }
+export type GetFilesQueryHookResult = ReturnType<typeof useGetFilesQuery>;
+export type GetFilesLazyQueryHookResult = ReturnType<typeof useGetFilesLazyQuery>;
+export type GetFilesQueryResult = Apollo.QueryResult<GetFilesQuery, GetFilesQueryVariables>;
 export const AddUserDocument = gql`
     mutation addUser($input: AddUserInput!) {
   addUser(input: $input)

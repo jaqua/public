@@ -35,7 +35,7 @@ App.getInitialProps = async (appContext: any) => {
 export default withApollo(
   ({ initialState }: InitApolloOptions<any>): ApolloClient<any> => {
     return new ApolloClient({
-      link: getLink({ usesUpload: false }),
+      link: getLink({ usesUpload: true }),
       cache: new InMemoryCache({
         addTypename: false
       }).restore(initialState || {})

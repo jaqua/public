@@ -1,0 +1,46 @@
+scalar Upload
+
+type File {
+  _id: ID!
+  filename: String!
+  contentType: String!
+  chunkSize: Int
+  uploadDate: Date
+  length: Int
+  metadata: FileMetadata
+}
+
+type FileMetadata {
+  filename: String
+  name: String
+  versionName: String
+  mainId: ID
+  editedId: ID
+  smallId: ID
+  fullId: ID
+  thumbnailId: ID
+  width: Int
+  height: Int
+  duration: Float
+  codec: String
+  parent: ID
+  children: [ID]
+  date: Date
+  uploadDate: Date
+}
+
+type UploadResult {
+  id: ID
+  thumbId: ID
+  filename: String!
+  status: String!
+  reason: String
+}
+
+type Query {
+  getFiles: [File]
+}
+
+type Mutation {
+  uploadFiles(files: [Upload!]!, bucketName: String): [UploadResult]
+}

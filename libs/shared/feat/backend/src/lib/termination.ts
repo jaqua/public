@@ -1,5 +1,6 @@
 import { Logger, NestApplicationOptions } from '@nestjs/common'
 import { NestFactory } from '@nestjs/core'
+import graphqlUploadExpress from 'graphql-upload/graphqlUploadExpress.js'
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
 import helmet from 'helmet'
@@ -12,6 +13,11 @@ const helm = helmet({
   frameguard: false,
   contentSecurityPolicy: false,
   crossOriginResourcePolicy: false
+})
+
+const upload = graphqlUploadExpress({
+  maxFileSize: 50 * 1024 * 1024,
+  maxFiles: 1
 })
 
 export const terminate = (
@@ -42,7 +48,7 @@ export const main = async (AppModule: unknown, corsOptions: CorsOption) => {
 
   const app = await NestFactory.create(AppModule, options)
 
-  app.use(helm)
+  app.use(helm, upload)
 
   app.enableCors(corsOptions)
   app.enableShutdownHooks()

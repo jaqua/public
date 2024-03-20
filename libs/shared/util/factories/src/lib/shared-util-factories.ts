@@ -6,8 +6,7 @@
 import bcrypt from 'bcryptjs'
 import { Factory } from 'fishery'
 
-import { Notecard } from '@jaqua/project.de/graphql'
-import { User } from '@jaqua/shared/graphql'
+import { Notecard, User } from '@jaqua/project.de/graphql'
 import { generateSlug, getHash } from '@jaqua/shared/util/generator'
 
 export const userFactory = Factory.define<User>(() => {

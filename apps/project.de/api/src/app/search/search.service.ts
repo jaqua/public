@@ -7,7 +7,7 @@ import { Inject, Injectable } from '@nestjs/common'
 import { assert } from 'check-types'
 import { Db } from 'mongodb'
 
-import { ContentDataset } from '@jaqua/shared/graphql'
+import { ContentDataset } from '@jaqua/project.de/graphql'
 
 export type SearchQuery = {
   title?: { $regex: RegExp }

@@ -6,12 +6,14 @@ import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo'
 import { Module } from '@nestjs/common'
 import { ConfigModule } from '@nestjs/config'
 import { GraphQLModule } from '@nestjs/graphql'
+import GraphQLUpload from 'graphql-upload/GraphQLUpload.js'
 
 import { AuthModule, UserModule } from '@jaqua/shared/modules/admin'
 
 import { AppController } from './app.controller'
 import { NotecardModule } from './notecard/notecard.module'
 import { SearchModule } from './search/search.module'
+import { UploadModule } from './upload/upload.module'
 import { VideoModule } from './video/video.module'
 
 export const domain = 'project.de'
@@ -42,6 +44,7 @@ export const corsOptions = { credentials: true, origin }
     ConfigModule.forRoot({ envFilePath }),
     GraphQLModule.forRoot<ApolloDriverConfig>({
       driver: ApolloDriver,
+      resolvers: { Upload: GraphQLUpload },
       typePaths,
       cache: 'bounded',
       cors: corsOptions,
@@ -53,7 +56,8 @@ export const corsOptions = { credentials: true, origin }
     UserModule,
     SearchModule,
     NotecardModule,
-    VideoModule
+    VideoModule,
+    UploadModule
   ],
   controllers: [AppController]
 })

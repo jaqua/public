@@ -18,19 +18,6 @@
         "jestConfig": "libs/shared/util/graphql/jest.config.ts",
         "passWithNoTests": true
       }
-    },
-    "generate": {
-      "executor": "nx:run-commands",
-      "options": {
-        "commands": [
-          {
-            "command": "ts-node tools/scripts/typings/shared-generate-typings.ts"
-          },
-          {
-            "command": "npx graphql-codegen --config libs/shared/util/graphql/codegen.yml"
-          }
-        ]
-      }
     }
   },
   "tags": ["scope:shared", "type:util"]
