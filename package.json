@@ -20,7 +20,7 @@
     "lint": "nx workspace-lint && nx lint",
     "lint:all": "nx run-many --all --target=lint --parallel=5",
     "e2e-api:project.de": "start-server-and-test \"NODE_ENV=test nx run project.de-api:serve\" 3040",
-    "e2e:project.de-editor": "npm run e2e-api:project.de -- \"NODE_ENV=test nx e2e project.de-editor-e2e\"",
+    "e2e:project.de-editor": "npm run e2e-api:project.de -- \"NODE_ENV=test nx e2e project.de-editor-e2e --skip-nx-cache\"",
     "serve:api": "nx serve project.de-api",
     "serve:editor": "nx serve project.de-editor",
     "serve:main": "nx serve project.de-main",
