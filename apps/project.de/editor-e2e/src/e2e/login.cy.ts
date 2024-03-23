@@ -1,11 +1,12 @@
-import { loginUI } from '@jaqua/testing'
+import { fixtures } from '@jaqua/project.de/factories'
 
 before(() => {
-  cy.task('db:seed')
+  cy.seed(fixtures())
   cy.visit('/login')
 })
 
 it('should display form and perform login', () => {
   cy.findAllByText('Login').should('exist')
-  loginUI()
+  cy.login('admin', 'admin', true)
+  cy.findByRole('button', { name: /upload/i }).should('exist')
 })

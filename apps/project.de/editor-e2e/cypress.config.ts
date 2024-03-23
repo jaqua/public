@@ -1,24 +1,18 @@
 import { nxE2EPreset } from '@nx/cypress/plugins/cypress-preset'
 import { defineConfig } from 'cypress'
-
-import { fixtures } from '@jaqua/project.de/factories'
-import { seed } from '@jaqua/testing'
+import { configurePlugin } from 'cypress-mongodb'
 
 export default defineConfig({
+  env: {
+    mongodb: {
+      uri: 'mongodb://127.0.0.1:27017',
+      database: 'public-e2e'
+    }
+  },
   e2e: {
     ...nxE2EPreset(__dirname),
     setupNodeEvents(on) {
-      on('task', {
-        'db:seed': async (type) => {
-          let data
-          switch (type) {
-            default:
-              data = fixtures()
-              break
-          }
-          return seed(data, 'public')
-        }
-      })
+      configurePlugin(on)
     }
   }
 })
