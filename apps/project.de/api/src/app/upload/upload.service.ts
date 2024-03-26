@@ -43,46 +43,51 @@ export class UploadService {
           // eslint-disable-next-line no-async-promise-executor
           async (resolve, reject) => {
             const { filename, mimetype, createReadStream } = await file
+
             if (!filename || !mimetype || !createReadStream)
               return reject({ filename, reason: 'File could not be resolved' })
 
             // Check if file is already existing
             const isExisting = await Files.findOne({ filename })
+
             if (isExisting)
               return reject({ filename, reason: 'File is existing' })
-
             const metadata: FileMetadata = {}
             let contentType = mimetype
             let readStream = createReadStream()
             let pathToLocalVideofile = null
 
             const videoMetadata = await getVideoMetadata(createReadStream())
+
             const { format, streams } = videoMetadata || {
               format: {},
               streams: [{}]
             }
+
             const createdAt = format.tags?.creation_time
             const { codec_name, width, height } = streams.filter(
               (s) => s.codec_type === 'video'
             )[0] as any
+
             const w = width <= 1280 ? width : 1280
             const h = height * (w / width)
             const hash = getHash()
 
-            const {
-              path,
-              dimension,
-              mimetype: mType,
-              codec
-            } = await reencodeVideo(
-              readStream,
-              filename,
-              contentType,
-              codec_name,
-              hash,
-              width,
-              [w, h]
-            )
+            let data = null
+            try {
+              data = await reencodeVideo(
+                readStream,
+                filename,
+                contentType,
+                codec_name,
+                hash,
+                width,
+                [w, h]
+              )
+            } catch (error) {
+              return reject(new Error('Not found'))
+            }
+            const { path, dimension, mimetype: mType, codec } = data
 
             contentType = mType
             pathToLocalVideofile = path
@@ -96,6 +101,7 @@ export class UploadService {
 
             // Create local screenshot file
             const pathToLocalScreenshot = await createLocalScreenshot(hash)
+
             // And save screenshot file to db
             const thumbId = await uploadFileToGridFS(
               this.db,
@@ -109,6 +115,7 @@ export class UploadService {
               pathToLocalScreenshot,
               bucketName
             )
+
             metadata['screenshotId'] = thumbId
 
             const fileId = await uploadFileToGridFS(

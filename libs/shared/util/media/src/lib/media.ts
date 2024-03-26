@@ -4,9 +4,16 @@
  * @copyright     © 2023-2024 by J. Quader
  */
 import ffmpeg, { FfprobeData } from 'fluent-ffmpeg'
-import { ReadStream, createWriteStream, renameSync, unlinkSync } from 'fs'
+import {
+  ReadStream,
+  createWriteStream,
+  promises as fsPromises,
+  renameSync,
+  unlinkSync
+} from 'fs'
 import type { FileUpload } from 'graphql-upload/processRequest'
 import { Db, GridFSBucket, GridFSBucketReadStream } from 'mongodb'
+import { dirname } from 'path'
 
 import { File, FileMetadata, UploadResult } from '@jaqua/shared/graphql'
 
@@ -58,11 +65,26 @@ export const createTemporaryFile = async (
   path: string
 ): Promise<void> => {
   try {
-    await new Promise<void>((resolve) => {
+    // Ensure the directory exists
+    const directory = dirname(path)
+    await fsPromises.mkdir(directory, { recursive: true })
+
+    await new Promise<void>((resolve, reject) => {
       console.log('Create temporary file ' + path)
 
       const writeStream = createWriteStream(path)
       readStream.pipe(writeStream)
+
+      // Handle errors on the write stream
+      writeStream.on('error', (error) => {
+        reject(error) // Reject the promise on write error
+      })
+
+      // Additionally, consider handling errors on the read stream as well
+      readStream.on('error', (error) => {
+        reject(error) // Reject the promise on read error
+      })
+
       writeStream.on('finish', resolve)
     })
   } catch (error) {
@@ -90,6 +112,7 @@ export async function reencodeVideo(
   const output = 'tmp/' + hash + '.mp4'
 
   await createTemporaryFile(readStream, path)
+
   if (contentType === 'video/mp4' && codec_name === 'h264' && width <= 1280) {
     renameSync(path, output)
     return { path: output, dimension, mimetype: contentType, codec: codec_name }

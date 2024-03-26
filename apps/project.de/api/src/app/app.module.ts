@@ -11,6 +11,8 @@ import GraphQLUpload from 'graphql-upload/GraphQLUpload.js'
 import { AuthModule, UserModule } from '@jaqua/shared/modules/admin'
 
 import { AppController } from './app.controller'
+import { DeleteModule } from './deleteFile/delete.module'
+// Ensure this import is correct
 import { NotecardModule } from './notecard/notecard.module'
 import { SearchModule } from './search/search.module'
 import { UploadModule } from './upload/upload.module'
@@ -57,8 +59,9 @@ export const corsOptions = { credentials: true, origin }
     SearchModule,
     NotecardModule,
     VideoModule,
-    UploadModule
+    UploadModule,
+    DeleteModule
   ],
-  controllers: [AppController]
+  controllers: [AppController] // Add UploadFileController here
 })
 export class AppModule {}
