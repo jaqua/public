@@ -1,7 +1,9 @@
-import { fixtures } from '@jaqua/project.de/factories'
+import { userFactory } from '@jaqua/shared/util/factories'
+
+const user = userFactory.build({}, { transient: { role: 'editor' } })
 
 before(() => {
-  cy.seed(fixtures())
+  cy.seed({ users: [user] })
   cy.visit('/login')
 })
 
