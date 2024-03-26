@@ -1,0 +1,8 @@
+type Mutation {
+  deleteFileByFilename(filename: String!): DeleteFileResponse
+}
+
+type DeleteFileResponse {
+  success: Boolean!
+  message: String
+}
