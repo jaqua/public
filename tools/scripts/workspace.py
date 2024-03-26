@@ -1,7 +1,7 @@
 # Fileoverview    Generates nx applications and libraries in new workspace
 # Author          Dr. J. Quader
 # Version         1.0.0 (25.03.2024)
-# Usage           python3 tools/scripts/generate.py
+# Usage           python3 tools/scripts/workspace.py
 
 import json
 import os
