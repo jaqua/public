@@ -79,14 +79,29 @@ export const Upload = () => {
       }
 
       xhr.current.onload = () => {
-        if (xhr.current.status === 200) {
+        if (xhr.current.status >= 200 && xhr.current.status < 300) {
           const response = JSON.parse(xhr.current.responseText)
-          const uploadedFiles = response?.data?.uploadFiles
-          setResult(uploadedFiles)
-          setUploading(false)
+
+          // Check for GraphQL errors
+          if (response.errors && response.errors.length > 0) {
+            // You can customize this part to handle different types of errors differently
+            // For simplicity, we'll just take the message from the first error
+            const errorMessage = response.errors[0].message
+            setError(errorMessage)
+            setUploading(false)
+            setResult([]) // Clear any results as there was an error
+          } else {
+            // Handle successful upload
+            const uploadedFiles = response?.data?.uploadFiles
+            setResult(uploadedFiles)
+            setUploading(false)
+            setError(null) // Clear any previous errors
+          }
         } else {
-          setError(xhr.current.statusText)
+          // Handle HTTP errors
+          setError(xhr.current.statusText || 'An unknown error occurred')
           setUploading(false)
+          setResult([]) // Clear any results as there was an error
         }
       }
 

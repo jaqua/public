@@ -52,7 +52,17 @@ export const corsOptions = { credentials: true, origin }
       cors: corsOptions,
       csrfPrevention: false,
       playground: !isProduction,
-      introspection: !isProduction
+      introspection: !isProduction,
+      formatError: (error) => {
+        const graphQLFormattedError = {
+          message: error.message || 'An unknown error occurred.',
+          // Optionally include additional properties here, such as a custom error code
+          code: error.extensions?.code || 'INTERNAL_SERVER_ERROR',
+          // Conditionally include stack trace only in development mode
+          ...(process.env.NODE_ENV === 'development' && { stack: error.stack })
+        }
+        return graphQLFormattedError
+      }
     }),
     AuthModule,
     UserModule,

@@ -4,6 +4,7 @@
  * @copyright     © 2023-2024 by J. Quader
  */
 import { Inject, Injectable } from '@nestjs/common'
+import { ApolloError } from 'apollo-server-express'
 import fs from 'fs'
 import type { FileUpload } from 'graphql-upload/processRequest'
 import { Db } from 'mongodb'
@@ -85,7 +86,11 @@ export class UploadService {
                 [w, h]
               )
             } catch (error) {
-              return reject(new Error('Not found'))
+              reject({
+                filename,
+                reason: `Failed to process video: ${error.message}`
+              })
+              throw new ApolloError(`${error?.message}`, 'UPLOAD_FAILED')
             }
             const { path, dimension, mimetype: mType, codec } = data
 
