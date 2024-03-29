@@ -11,6 +11,8 @@ import GraphQLUpload from 'graphql-upload/GraphQLUpload.js'
 import { AuthModule, UserModule } from '@jaqua/shared/modules/admin'
 
 import { AppController } from './app.controller'
+import { DeleteModule } from './deleteFile/delete.module'
+// Ensure this import is correct
 import { NotecardModule } from './notecard/notecard.module'
 import { SearchModule } from './search/search.module'
 import { UploadModule } from './upload/upload.module'
@@ -50,15 +52,26 @@ export const corsOptions = { credentials: true, origin }
       cors: corsOptions,
       csrfPrevention: false,
       playground: !isProduction,
-      introspection: !isProduction
+      introspection: !isProduction,
+      formatError: (error) => {
+        const graphQLFormattedError = {
+          message: error.message || 'An unknown error occurred.',
+          // Optionally include additional properties here, such as a custom error code
+          code: error.extensions?.code || 'INTERNAL_SERVER_ERROR',
+          // Conditionally include stack trace only in development mode
+          ...(process.env.NODE_ENV === 'development' && { stack: error.stack })
+        }
+        return graphQLFormattedError
+      }
     }),
     AuthModule,
     UserModule,
     SearchModule,
     NotecardModule,
     VideoModule,
-    UploadModule
+    UploadModule,
+    DeleteModule
   ],
-  controllers: [AppController]
+  controllers: [AppController] // Add UploadFileController here
 })
 export class AppModule {}
