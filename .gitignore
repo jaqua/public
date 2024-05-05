@@ -119,3 +119,19 @@ buck-out/
 /coverage
 apps/mobile-e2e/artifacts
 apps/project.de/mobile-e2e/artifacts
+
+# Expo
+node_modules/
+.expo/
+.yarn/
+dist/
+npm-debug.*
+*.jks
+*.p8
+*.p12
+*.key
+*.mobileprovision
+*.orig.*
+web-build/
+cache/
+apps/project.de/mobile-app-e2e/artifacts
