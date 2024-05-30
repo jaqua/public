@@ -1,0 +1,22 @@
+@media print {
+  .pagebreak {
+    page-break-before: always;
+  }
+  form {
+    display: none;
+  }
+  .MuiPaper-root {
+    box-shadow: none;
+    margin-bottom: 40px;
+    th {
+      padding-bottom: 0;
+      padding-top: 0;
+    }
+  }
+  .MuiGrid2-container {
+    flex-direction: column;
+  }
+  .MuiGrid2-grid-mobile-6 {
+    width: 100%;
+  }
+}

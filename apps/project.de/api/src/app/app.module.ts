@@ -8,7 +8,7 @@ import { ConfigModule } from '@nestjs/config'
 import { GraphQLModule } from '@nestjs/graphql'
 import GraphQLUpload from 'graphql-upload/GraphQLUpload.js'
 
-import { AuthModule, UserModule } from '@jaqua/shared/modules/admin'
+import { AuthModule, UserModule } from '@jaqua/modules/admin'
 
 import { AppController } from './app.controller'
 import { NotecardModule } from './notecard/notecard.module'
