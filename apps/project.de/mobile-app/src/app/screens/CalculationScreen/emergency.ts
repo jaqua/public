@@ -5,8 +5,14 @@
  *
  * @requires      @jaqua/shared/util/formatting
  */
-import { round } from '@jaqua/shared/util/formatting'
 
+
+export const round = (num: any, decimalPlaces = 0) => {
+    const p = Math.pow(10, decimalPlaces)
+    const n = num * p * (1 + Number.EPSILON)
+    return Math.round(n) / p
+  }
+  
 
 export type TubusData = {
   weight: number
@@ -356,6 +362,7 @@ export interface IDrug {
   warning?: boolean
   doses?: IDosis[]
 }
+
 export const doses = [
   {
     wirkstoff: 'Adrenalin',
