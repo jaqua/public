@@ -2,11 +2,9 @@
   "expo": {
     "name": "mobile-app",
     "slug": "neonatologie",
-
     "version": "1.0.0",
     "orientation": "default",
     "userInterfaceStyle": "light",
-
     "icon": "./assets/icon.png",
     "splash": {
       "backgroundColor": "#333333",
@@ -16,7 +14,9 @@
     "updates": {
       "fallbackToCacheTimeout": 0
     },
-    "assetBundlePatterns": ["**/*"],
+    "assetBundlePatterns": [
+      "**/*"
+    ],
     "ios": {
       "supportsTablet": true
     },
@@ -24,7 +24,11 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#FFFFFF"
-      }
+      },
+      "permissions": [
+        "android.permission.RECORD_AUDIO"
+      ],
+      "package": "com.megha_kr.neonatologie"
     },
     "web": {
       "favicon": "./assets/favicon.png",
@@ -32,18 +36,16 @@
     },
     "plugins": [
       [
-        "@config-plugins/detox",
-        {
-          "skipProguard": false,
-          "subdomains": ["10.0.2.2", "localhost"]
-        }
-      ],
-      [
         "expo-image-picker",
         {
           "photosPermission": "The app accesses your photos to let you share them with your friends."
         }
       ]
-    ]
+    ],
+    "extra": {
+      "eas": {
+        "projectId": "b3a2f29b-eb7b-42d8-983d-d9dbe3180212"
+      }
+    }
   }
 }
