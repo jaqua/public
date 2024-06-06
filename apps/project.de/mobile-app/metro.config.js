@@ -13,6 +13,7 @@ const { assetExts, sourceExts } = defaultConfig.resolver
  * @type {import('metro-config').MetroConfig}
  */
 const customConfig = {
+  
   transformer: {
     babelTransformerPath: require.resolve('react-native-svg-transformer')
   },

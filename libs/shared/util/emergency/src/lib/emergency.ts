@@ -5,7 +5,8 @@
  *
  * @requires      @jaqua/shared/util/formatting
  */
-import { round } from '@jaqua/shared/util/formatting'
+// import { round } from '@jaqua/shared/util/formatting'
+import {round} from '../../../formatting/src/index';
 
 export type TubusData = {
   weight: number

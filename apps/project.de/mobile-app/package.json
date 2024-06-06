@@ -5,29 +5,38 @@
   "dependencies": {
     "@testing-library/jest-native": "*",
     "@testing-library/react-native": "*",
-    "metro-config": "*",
-    "react-native": "*",
     "expo": "*",
-    "react-native-svg": "*",
-    "react-native-web": "*",
     "@nx/expo": "*",
     "@expo/metro-config": "*",
-    "react-native-svg-transformer": "*",
-    "react": "*",
     "expo-font": "*",
     "clsx": "*",
-    "react-native-gesture-handler": "*",
+    "@react-navigation/native-stack": "*",
     "@react-navigation/native": "*",
-    "react-native-popover-view": "*",
     "@react-navigation/drawer": "*",
     "expo-image-picker": "*",
     "expo-splash-screen": "*",
-    "react-native-super-grid": "*",
+    "metro-config": "*",
+    "nativewind": "^2.0.11",
+    "postcss": "^8.4.38",
+    "react": "*",
+    "react-native": "*",
+    "react-native-gesture-handler": "*",
     "react-native-heroicons": "*",
-    "@react-navigation/native-stack": "*"
+    "react-native-popover-view": "*",
+    "react-native-super-grid": "*",
+    "react-native-svg": "*",
+    "react-native-svg-transformer": "*",
+    "react-native-web": "*",
+    "tailwindcss": "*",
+    "jest-in-case": "*",
+    "date-fns": "*",
+    "@nx/devkit": "*"
   },
   "scripts": {
     "eas-build-pre-install": "cd ../../../ && node tools/scripts/eas-build-pre-install.mjs . apps/project.de/mobile-app && cp package-lock.json apps/project.de/mobile-app",
     "eas-build-post-install": "cd ../../../ && node tools/scripts/eas-build-post-install.mjs . apps/project.de/mobile-app"
+  },
+  "devDependencies": {
+    "tailwindcss": "^3.3.2"
   }
 }
