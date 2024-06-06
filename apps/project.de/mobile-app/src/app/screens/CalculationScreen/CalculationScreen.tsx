@@ -1,7 +1,7 @@
 
 import React, {useState} from 'react';
 import { View, Text, TextInput,StyleSheet, ScrollView, Dimensions, TouchableOpacity, Animated } from 'react-native';
-import {perfusors, immediateCare, doses, calculateDosis, getTubusData} from '../../../../../../../libs/shared/util/emergency/src/index';
+import {perfusors, immediateCare, doses, calculateDosis, getTubusData} from "@jaqua/emergency"
 
 const CalculationScreen: React.FC = () => {
     const [text, setText] = useState('');

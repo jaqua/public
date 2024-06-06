@@ -18,6 +18,9 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
+      "@jaqua/emergency" : [
+        "libs/libs/shared/util/emergency/src/index.ts"
+      ],
       "@jaqua/auth": ["libs/shared/data-access/auth/src/index.ts"],
       "@jaqua/config": ["libs/shared/util/config/src/index.ts"],
       "@jaqua/db": ["libs/shared/data-access/db/src/index.ts"],

@@ -32,7 +32,8 @@
     "react-native-web": "*",
     "tailwindcss": "*",
     "jest-in-case": "*",
-    "date-fns": "*"
+    "date-fns": "*",
+    "@nx/devkit": "*"
   },
   "scripts": {
     "eas-build-pre-install": "cd ../../../ && node tools/scripts/eas-build-pre-install.mjs . apps/project.de/mobile-app && cp package-lock.json apps/project.de/mobile-app",
