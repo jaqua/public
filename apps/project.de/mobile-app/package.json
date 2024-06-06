@@ -24,7 +24,7 @@
     "react-native-heroicons": "*",
     "react-native-popover-view": "*",
     "react-native-super-grid": "*",
-    "react-native-svg": "^15.2.0",
+    "react-native-svg": "*",
     "react-native-svg-transformer": "*",
     "react-native-web": "*",
     "tailwindcss": "*",
