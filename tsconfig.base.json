@@ -60,15 +60,11 @@
       "@jaqua/shared/feat/login": ["libs/shared/feat/login/src/index.ts"],
       "@jaqua/shared/feat/wrapper": ["libs/shared/feat/wrapper/src/index.ts"],
       "@jaqua/shared/graphql": ["libs/shared/util/graphql/src/index.ts"],
-      "@jaqua/shared/modules/admin": [
-        "libs/shared/feat/modules/admin/src/index.ts"
-      ],
+      "@jaqua/modules/admin": ["libs/shared/feat/modules/admin/src/index.ts"],
       "@jaqua/shared/modules/article": [
         "libs/shared/feat/modules/article/src/index.ts"
       ],
-      "@jaqua/shared/modules/upload": [
-        "libs/shared/feat/modules/upload/src/index.ts"
-      ],
+      "@jaqua/modules/upload": ["libs/shared/feat/modules/upload/src/index.ts"],
       "@jaqua/shared/util/action": ["libs/shared/util/action/src/index.ts"],
       "@jaqua/shared/util/apollo-link": [
         "libs/shared/util/apollo-link/src/index.ts"
@@ -84,6 +80,9 @@
       "@jaqua/shared/util/check": ["libs/shared/util/check/src/index.ts"],
       "@jaqua/shared/util/cookie": ["libs/shared/util/cookie/src/index.ts"],
       "@jaqua/shared/util/date": ["libs/shared/util/date/src/index.ts"],
+      "@jaqua/shared/util/emergency": [
+        "libs/shared/util/emergency/src/index.ts"
+      ],
       "@jaqua/shared/util/factories": [
         "libs/shared/util/factories/src/index.ts"
       ],

@@ -6,13 +6,13 @@
 import { UseGuards } from '@nestjs/common'
 import { Args, Mutation, Query, Resolver } from '@nestjs/graphql'
 
+import { Public, Roles } from '@jaqua/modules/admin'
 import {
   Notecard,
   NotecardAddInput,
   NotecardContentParam,
   NotecardUpdateInput
 } from '@jaqua/project.de/graphql'
-import { Public, Roles } from '@jaqua/shared/modules/admin'
 import {
   CurrentUser,
   GqlAuthGuard,

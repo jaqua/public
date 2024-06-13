@@ -6,8 +6,8 @@
 import { UseGuards } from '@nestjs/common'
 import { Args, Query, Resolver } from '@nestjs/graphql'
 
+import { Public, Roles } from '@jaqua/modules/admin'
 import { ContentDataset } from '@jaqua/project.de/graphql'
-import { Public, Roles } from '@jaqua/shared/modules/admin'
 import { GqlAuthGuard, RolesGuard } from '@jaqua/shared/util/auth-guard'
 
 import { SearchService } from './search.service'

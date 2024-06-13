@@ -6,11 +6,11 @@
 import { UseGuards } from '@nestjs/common'
 import { Args, Mutation, Resolver } from '@nestjs/graphql'
 
+import { Roles } from '@jaqua/modules/admin'
 import {
   VideoRemoveInput,
   VideoUpdateContentInput
 } from '@jaqua/project.de/graphql'
-import { Roles } from '@jaqua/shared/modules/admin'
 import { GqlAuthGuard, RolesGuard } from '@jaqua/shared/util/auth-guard'
 
 import { VideoService } from './video.service'

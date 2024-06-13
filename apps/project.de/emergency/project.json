@@ -1,0 +1,22 @@
+{
+  "name": "project.de-emergency",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "apps/project.de/emergency",
+  "projectType": "application",
+  "tags": ["scope:project.de", "type:app"],
+  "targets": {
+    "build": {
+      "executor": "@nx/next:build",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/apps/project.de/emergency",
+        "generateLockfile": true
+      }
+    },
+    "serve": {
+      "options": {
+        "port": 3033
+      }
+    }
+  }
+}
