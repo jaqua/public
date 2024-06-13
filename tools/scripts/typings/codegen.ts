@@ -20,6 +20,7 @@ const config: CodegenConfig = {
         'typescript-react-apollo',
         'typescript-mongodb'
       ],
+      // preset: 'client',
       config: {
         declarationKind: 'class'
         // withHooks: false,

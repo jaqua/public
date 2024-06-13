@@ -58,7 +58,7 @@ const Categories = [
   }
 ]
 
-const CategoryScreen = () => {
+const CategoryScreen2 = () => {
   const theme = ThemeConfig()
   const [query, setQuery] = useState('')
   const [filter, setFilter] = useState(filters[0])
@@ -78,12 +78,12 @@ const CategoryScreen = () => {
   const isLandscape = getOrientation() === 'landscape'
 
   return (
-    <>
+    <View className="flex-1">
       <BasicAppBar title="Categories" />
 
       <View
         className={clsx({
-          'bg-white flex-1 container': true,
+          'bg-red-500 flex-1 container': true,
           'flex-row-reverse': isLandscape
         })}
       >
@@ -131,6 +131,7 @@ const CategoryScreen = () => {
             </ScrollView>
           </View>
 
+          {/* Sort by */}
           <View className=" pt-6 pb-6">
             <Text className="text-primary text-4xl font-aeonisBold text-[23px]">
               Sort by
@@ -160,6 +161,7 @@ const CategoryScreen = () => {
               )
             })}
           </View>
+          {/* End Sort by */}
         </View>
       </View>
 
@@ -180,7 +182,8 @@ const CategoryScreen = () => {
           );
         })}
       </ScrollView> */}
-      <View className="flex-1 w-full container pt-14">
+
+      <View className="flex-1 w-full container bg-red-500">
         <FlatList
           numColumns={isLandscape ? 2 : 1}
           columnWrapperStyle={isLandscape ? { gap: 60 } : false}
@@ -192,7 +195,130 @@ const CategoryScreen = () => {
           }}
         />
       </View>
-    </>
+    </View>
+  )
+}
+
+const CategoryScreen = () => {
+  const theme = ThemeConfig()
+  const [query, setQuery] = useState('')
+  const [filter, setFilter] = useState(filters[0])
+  const [sortBy, setSortBy] = useState(sortOptions[0])
+  const onFilterPress = useCallback((f: string) => {
+    return () => {
+      setFilter(f)
+    }
+  }, [])
+
+  const onSortPress = useCallback((f: string) => {
+    return () => {
+      setSortBy(f)
+    }
+  }, [])
+
+  const isLandscape = getOrientation() === 'landscape'
+
+  return (
+    <View className="flex-1 bg-red-500">
+      <BasicAppBar title="Categories" />
+
+      <View
+        className={cs({
+          'bg-red-500 flex-1 container': true,
+          'flex-row-reverse': isLandscape
+        })}
+      >
+        <View
+          className={cs({
+            'pt-8': true,
+            'flex-1 ml-[8%]': isLandscape
+          })}
+        >
+          <SearchBar />
+        </View>
+
+        <View style={{ flex: 1 }}>
+          <View className=" pt-8 pb-8">
+            <Text className="text-4xl font-aeonisBold text-primary">
+              Category
+            </Text>
+          </View>
+          <View>
+            <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+              <View className="flex-row justify-between  space-x-5">
+                {filters.map((filterName) => {
+                  const f = filter === filterName
+                  return (
+                    <Pressable
+                      key={filterName}
+                      onPress={onFilterPress(filterName)}
+                      className={cs({
+                        'rounded-full px-1 items-center w-36 h-8': true,
+                        'bg-accent text-white': f
+                      })}
+                    >
+                      <Text
+                        className={cs([
+                          f ? 'text-white' : 'text-basicGrey',
+                          'text-lg font-montserrat font-bold'
+                        ])}
+                      >
+                        {filterName}
+                      </Text>
+                    </Pressable>
+                  )
+                })}
+              </View>
+            </ScrollView>
+          </View>
+
+          {/* Sort by */}
+          <View className=" pt-6 pb-6">
+            <Text className="text-primary text-4xl font-aeonisBold text-[23px]">
+              Sort by
+            </Text>
+          </View>
+          <View className="flex-row pb-6 space-x-5">
+            {sortOptions.map((sortName) => {
+              return (
+                <Pressable
+                  key={sortName}
+                  onPress={onSortPress(sortName)}
+                  className={cs({
+                    'bg-white border-2 border-primary  rounded-lg py-2 px-4 items-center min-w- max-w-[144px]':
+                      true,
+                    'bg-accent border-0': sortBy === sortName
+                  })}
+                >
+                  <Text
+                    className={cs(
+                      sortBy === sortName ? 'text-white' : 'text-primary',
+                      'capitalize font-montserrat font-bold text-lg'
+                    )}
+                  >
+                    {sortName}
+                  </Text>
+                </Pressable>
+              )
+            })}
+          </View>
+          {/* End Sort by */}
+        </View>
+      </View>
+
+      <View className="flex-1 w-full container bg-red-500">
+        <FlatList
+          numColumns={isLandscape ? 2 : 1}
+          columnWrapperStyle={isLandscape ? { gap: 60 } : false}
+          contentContainerStyle={{ gap: 30 }}
+          data={Categories}
+          keyExtractor={(item) => item.id}
+          renderItem={({ item }) => {
+            return <CategoryItem {...item} />
+          }}
+        />
+      </View>
+    </View>
   )
 }
 

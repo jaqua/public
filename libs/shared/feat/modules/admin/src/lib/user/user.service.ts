@@ -3,7 +3,7 @@
  * @author        Dr. J. Quader
  * @copyright     © 2020-2023 by J. Quader
  */
-import { Inject, Injectable } from '@nestjs/common'
+import { Inject, Injectable, NotFoundException } from '@nestjs/common'
 import bcrypt from 'bcryptjs'
 import check from 'check-types'
 import { Db } from 'mongodb'
@@ -30,15 +30,34 @@ export class UserService {
   ) {}
 
   async getUsers(): Promise<Array<User>> {
+    // const result = await Users.find({}, { sort: { username: 1 } }).toArray()
+    // return result.map((user) => ({ id: user._id.toString(), ...user }))
+
     const Users = this.db.collection<User>('users')
-    const result = await Users.find({}, { sort: { username: 1 } }).toArray()
-    return result.map((user) => ({ id: user._id.toString(), ...user }))
+    return await Users.aggregate<User>([
+      {
+        $addFields: {
+          id: {
+            $toString: '$_id'
+          }
+        }
+      },
+      {
+        $sort: {
+          username: 1
+        }
+      }
+    ]).toArray()
   }
 
-  async getUser({ username }: UserParam): Promise<UserData | null> {
-    const Users = this.db.collection<UserData>('users')
+  async getUser({ username }: UserParam) {
+    const Users = this.db.collection<User>('users')
     const data = await Users.findOne({ username })
-    return data
+    if (data) {
+      data.id = data._id.toString()
+      return data
+    }
+    throw new NotFoundException()
   }
 
   /**

@@ -10,9 +10,9 @@ import { fixtures } from '@jaqua/shared/util/factories'
 
 type CorsOption = { credentials: boolean; origin: RegExp | boolean }
 const helm = helmet({
-  frameguard: false,
-  contentSecurityPolicy: false,
-  crossOriginResourcePolicy: false
+  // frameguard: false
+  // contentSecurityPolicy: false,
+  // crossOriginResourcePolicy: false
 })
 
 const upload = graphqlUploadExpress({
@@ -48,7 +48,9 @@ export const main = async (AppModule: unknown, corsOptions: CorsOption) => {
 
   const app = await NestFactory.create(AppModule, options)
 
-  app.use(helm, upload)
+  // app.use(helm, upload)
+
+  app.use(upload)
 
   app.enableCors(corsOptions)
   app.enableShutdownHooks()

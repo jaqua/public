@@ -96,6 +96,7 @@ export class UploadService {
 
             // Create local screenshot file
             const pathToLocalScreenshot = await createLocalScreenshot(hash)
+
             // And save screenshot file to db
             const thumbId = await uploadFileToGridFS(
               this.db,
@@ -110,6 +111,11 @@ export class UploadService {
               bucketName
             )
             metadata['screenshotId'] = thumbId
+
+            console.log({ thumbId })
+
+            const state = true
+            if (state) return state
 
             const fileId = await uploadFileToGridFS(
               this.db,

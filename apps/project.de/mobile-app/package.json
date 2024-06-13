@@ -24,7 +24,10 @@
     "expo-splash-screen": "*",
     "react-native-super-grid": "*",
     "react-native-heroicons": "*",
-    "@react-navigation/native-stack": "*"
+    "@react-navigation/native-stack": "*",
+    "@apollo/client": "*",
+    "react-hook-form": "*",
+    "expo-secure-store": "*"
   },
   "scripts": {
     "eas-build-pre-install": "cd ../../../ && node tools/scripts/eas-build-pre-install.mjs . apps/project.de/mobile-app && cp package-lock.json apps/project.de/mobile-app",

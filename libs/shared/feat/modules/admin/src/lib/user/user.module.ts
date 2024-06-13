@@ -7,12 +7,13 @@ import { Module } from '@nestjs/common'
 
 import { DatabaseModule } from '@jaqua/db'
 
-import { AuthModule } from '../auth/auth.module'
+// import { AuthModule } from '../auth/auth.module'
 import { UserResolvers } from './user.resolvers'
 import { UserService } from './user.service'
 
+// AuthModule
 @Module({
-  imports: [DatabaseModule, AuthModule],
+  imports: [DatabaseModule],
   providers: [UserService, UserResolvers],
   exports: [UserService]
 })

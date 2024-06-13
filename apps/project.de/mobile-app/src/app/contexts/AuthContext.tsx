@@ -1,34 +1,38 @@
-import useAuth, { UserType } from "@/hooks/useAuth";
-import { PropsWithChildren, createContext, useContext } from "react";
+import { PropsWithChildren, createContext, useContext } from 'react'
+
+import useAuth from '@/hooks/useAuth'
+import { MutationResult } from '@apollo/client/react/types/types'
 
 type AuthContextType = {
-  isLoggedIn: boolean;
-  user: UserType;
-  login: () => Promise<void>;
-  logout: () => Promise<void>;
-};
+  isLoggedIn: boolean
+  login: (username: string, password: string) => Promise<void>
+  loginState: MutationResult<any> | null
+  logout: () => Promise<void>
+}
 const AuthContext = createContext<AuthContextType>({
   isLoggedIn: false,
-  user: null,
-  login: async () => {},
-  logout: async () => {},
-});
+  login: () => new Promise((res) => res()),
+  loginState: null,
+  logout: () => new Promise((res) => res())
+})
 
 export const useAuthContext = () => {
-  return useContext(AuthContext);
-};
+  return useContext(AuthContext)
+}
 
 export const AuthProvider = ({ children }: PropsWithChildren) => {
-  const { isLoggedIn, login, logout, user } = useAuth();
+  const { isLoggedIn, login, loginState, logout } = useAuth()
+
   return (
     <AuthContext.Provider
       value={{
         isLoggedIn,
         login,
-        logout,
-        user,
-      }}>
+        loginState,
+        logout
+      }}
+    >
       {children}
     </AuthContext.Provider>
-  );
-};
+  )
+}

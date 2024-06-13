@@ -4,6 +4,8 @@ import 'react-native-gesture-handler'
 import { AuthProvider } from '@/contexts/AuthContext'
 import { useCustomFont } from '@/hooks/useCustomFont'
 import RootLayout from '@/layouts/RootLayout'
+import { client } from '@@/libs/apollo/client'
+import { ApolloProvider } from '@apollo/client'
 import { NavigationContainer } from '@react-navigation/native'
 
 export default function App() {
@@ -30,9 +32,11 @@ export default function App() {
           onLayoutRootView()
         }}
       >
-        <AuthProvider>
-          <RootLayout />
-        </AuthProvider>
+        <ApolloProvider client={client}>
+          <AuthProvider>
+            <RootLayout />
+          </AuthProvider>
+        </ApolloProvider>
       </NavigationContainer>
     </>
   )

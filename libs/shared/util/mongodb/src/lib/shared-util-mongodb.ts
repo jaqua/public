@@ -17,3 +17,4 @@ export const safeObjectId = (id: string): ObjectId | null => {
     ? new ObjectId(id)
     : null
 }
+

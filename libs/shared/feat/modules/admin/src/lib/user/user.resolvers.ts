@@ -12,7 +12,6 @@ import {
   RemoveUserInput,
   ResetPwdInput,
   User,
-  UserData,
   UserParam,
   UserUpdateInput
 } from '@jaqua/shared/graphql'
@@ -29,13 +28,14 @@ export class UserResolvers {
   @Roles('admin')
   @UseGuards(GqlAuthGuard, RolesGuard)
   async getUsers(): Promise<Array<User>> {
+    console.log('this is getting called')
     return this.userService.getUsers()
   }
 
   @Query()
   @Roles('admin')
   @UseGuards(GqlAuthGuard, RolesGuard)
-  async getUser(@Args('param') param: UserParam): Promise<UserData | null> {
+  async getUser(@Args('param') param: UserParam): Promise<User | null> {
     return this.userService.getUser(param)
   }
 

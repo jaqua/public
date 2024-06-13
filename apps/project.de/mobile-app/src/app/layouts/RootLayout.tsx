@@ -26,21 +26,25 @@ const RootLayout = () => {
       }}
       backBehavior="history"
     >
-      <Drawer.Screen name="Category" component={CategoryScreen} />
+      {isLoggedIn ? (
+        <>
+          <Drawer.Screen name="Category" component={CategoryScreen} />
 
-      <Drawer.Screen
-        name="CategoryItem"
-        component={CategoryItemsScreen}
-        options={{
-          drawerItemStyle: { display: 'none' }
-        }}
-      />
+          <Drawer.Screen
+            name="CategoryItem"
+            component={CategoryItemsScreen}
+            options={{
+              drawerItemStyle: { display: 'none' }
+            }}
+          />
 
-      <Drawer.Screen name="Friends" component={FriendsScreen} />
+          <Drawer.Screen name="Friends" component={FriendsScreen} />
 
-      <Drawer.Screen name="Profile" component={SettingsScreen} />
-
-      <Drawer.Screen name="Login" component={LoginScreen} options={{}} />
+          <Drawer.Screen name="Profile" component={SettingsScreen} />
+        </>
+      ) : (
+        <Drawer.Screen name="Login" component={LoginScreen} options={{}} />
+      )}
     </Drawer.Navigator>
   )
 }

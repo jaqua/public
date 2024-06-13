@@ -2,12 +2,16 @@ import { INestApplication, Inject, Module } from '@nestjs/common'
 import { assert } from 'check-types'
 import { Db, MongoClient, MongoClientOptions } from 'mongodb'
 
+const DB_CLIENT_PROVIDER_KEY = 'DATABASE_CLIENT'
+const DB_CONNECTION_PROVIDER_KEY = 'DATABASE_CONNECTION'
+
 type TClient = {
-  client: MongoClient
+  client: MongoClient | null
 }
-export const mongodb = async (): Promise<Db | undefined> => {
+
+const getMongoClient = async () => {
   const isProduction = process.env.NODE_ENV === 'production'
-  const isTest = process.env.NODE_ENV === 'test'
+  // const isTest = process.env.NODE_ENV === 'test'
 
   const database = process.env.DB_DATABASE
   const user = process.env.DB_USER
@@ -26,37 +30,52 @@ export const mongodb = async (): Promise<Db | undefined> => {
 
   const options: MongoClientOptions = {}
   const client = new MongoClient(mongo, options)
-
+  return client
+}
+const getDbConnection = async (client: MongoClient) => {
+  const isTest = process.env.NODE_ENV === 'test'
+  const database = process.env.DB_DATABASE
   try {
     await client.connect()
-    // dbClient.client = client
     return client.db(isTest ? database + '-e2e' : database)
   } catch (error) {
     console.error(error)
   }
 }
 
+export const mongodb = async (): Promise<Db | undefined> => {
+  const client = await getMongoClient()
+  return await getDbConnection(client)
+}
+
 @Module({
   providers: [
     {
-      provide: 'DATABASE_CLIENT',
-      useFactory: () => ({ client: null })
+      provide: DB_CLIENT_PROVIDER_KEY,
+      useFactory: (): TClient => {
+        return { client: null }
+      }
     },
     {
-      provide: 'DATABASE_CONNECTION',
-      inject: ['DATABASE_CLIENT'],
-      useFactory: mongodb
+      provide: DB_CONNECTION_PROVIDER_KEY,
+      inject: [DB_CLIENT_PROVIDER_KEY],
+      useFactory: async (databaseClientProvider: TClient) => {
+        databaseClientProvider.client = await getMongoClient()
+        return await getDbConnection(databaseClientProvider.client)
+      }
     }
   ],
-  exports: ['DATABASE_CONNECTION', 'DATABASE_CLIENT']
+  exports: [DB_CONNECTION_PROVIDER_KEY, DB_CLIENT_PROVIDER_KEY]
 })
 export class DatabaseModule {
-  constructor(@Inject('DATABASE_CLIENT') private dbClient: TClient) {}
+  constructor(@Inject(DB_CLIENT_PROVIDER_KEY) private dbClient: TClient) {}
 
   async onModuleDestroy(): Promise<void> {
     try {
-      const client: MongoClient = this.dbClient.client
-      await client.close()
+      const client: MongoClient | null = this.dbClient.client
+      if (client) {
+        await client.close()
+      }
       console.log('mongodb connection closed')
     } catch (error) {
       console.error(error)
@@ -132,7 +151,8 @@ export const dropCollections = async (collections: Array<string>, db: Db) => {
 
 export const addFixtures = async (app: INestApplication, data: any) => {
   if (process.env.NODE_ENV === 'development') {
-    const db = app.get('DATABASE_CONNECTION', { strict: false })
+    const db = app.get(DB_CONNECTION_PROVIDER_KEY, { strict: false })
+    // console.log(db, 'mongo db')
     for (const [collection, documents] of Object.entries(data)) {
       const count = await db.collection(collection).countDocuments()
       if (count === 0) {
@@ -166,15 +186,13 @@ export const updateVersion = async (db: Db, field: string) => {
         }
       )
     else
-      await db
-        .collection('config')
-        .insertOne({
-          name: 'version',
-          major: 1,
-          minor: 0,
-          patch: 0,
-          lastModified: new Date()
-        })
+      await db.collection('config').insertOne({
+        name: 'version',
+        major: 1,
+        minor: 0,
+        patch: 0,
+        lastModified: new Date()
+      })
 
     return true
   } catch (error) {

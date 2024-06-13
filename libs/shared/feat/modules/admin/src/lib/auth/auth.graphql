@@ -1,8 +1,17 @@
-input ValidateUserInput {
+input UserInput {
   username: String!
   password: String!
 }
 
+type AccessToken {
+  access_token: String!
+}
+
+# type Query {
+#   getUsers: [User]
+#   getUser(param: UserParam): User
+# }
+
 type Mutation {
-  validateUser(input: ValidateUserInput!): User
+  login(input: UserInput!): AccessToken
 }
