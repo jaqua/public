@@ -11,7 +11,6 @@ import { ArrowLeftIcon } from 'react-native-heroicons/solid'
 import AuthFormContainer from '@/components/containers/AuthFormContainer'
 import ThemeConfig, { getMyTheme } from '@/constants/myTheme'
 import { useAuthContext } from '@/contexts/AuthContext'
-import useLogin from '@/hooks/useLogin'
 // import { useAuthContext } from '@/contexts/AuthContext'
 import { LoginStackScreenProps } from '@/types/navigation.types'
 
@@ -25,8 +24,6 @@ const LoginForm = ({ navigation }: LoginFormProps) => {
   const { login, loginState } = useAuthContext()
 
   const theme = getMyTheme()
-
-  const [loginMutation, { data, error, loading }] = useLogin()
   const onGoBack = () => {
     navigation.goBack()
   }
@@ -83,7 +80,7 @@ const LoginForm = ({ navigation }: LoginFormProps) => {
             onPress={handleSubmit(onSubmit)}
             className="w-full h-14 rounded-full border-2 border-white items-center justify-center"
           >
-            {loading ? (
+            {loginState?.loading ? (
               <ActivityIndicator color={theme.white.lightMode} />
             ) : (
               <Text className="text-white font-semibold text-[28px]">

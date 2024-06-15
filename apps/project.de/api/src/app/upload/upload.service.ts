@@ -111,11 +111,7 @@ export class UploadService {
               bucketName
             )
             metadata['screenshotId'] = thumbId
-
-            console.log({ thumbId })
-
-            const state = true
-            if (state) return state
+            metadata['filename'] = filename
 
             const fileId = await uploadFileToGridFS(
               this.db,
@@ -126,8 +122,6 @@ export class UploadService {
               pathToLocalVideofile,
               bucketName
             )
-
-            metadata['filename'] = filename
 
             resolve({ id: fileId, thumbId, filename })
           }

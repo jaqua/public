@@ -6,21 +6,43 @@ const config: CodegenConfig = {
     'libs/shared/feat/modules/common/**/*.graphql',
     'libs/shared/feat/modules/admin/**/*.graphql'
   ],
+  documents: [
+    'libs/project.de/util/graphql/src/lib/documents/**/*.gql',
+    'libs/shared/util/graphql/src/lib/documents/queries/*.gql',
+    'libs/shared/util/graphql/src/lib/documents/mutations/admin/*.gql',
+    'libs/shared/util/graphql/src/lib/documents/queries/admin/*.gql'
+  ],
   generates: {
-    ['libs/project.de/util/graphql/src/lib/generated.ts']: {
-      documents: [
-        'libs/project.de/util/graphql/src/lib/documents/**/*.gql',
-        'libs/shared/util/graphql/src/lib/documents/queries/*.gql',
-        'libs/shared/util/graphql/src/lib/documents/mutations/admin/*.gql',
-        'libs/shared/util/graphql/src/lib/documents/queries/admin/*.gql'
+    'apps/project.de/mobile-app/libs/apollo/generated/': {
+      preset: 'client',
+      plugins: [
+        // 'typescript',
+        // 'typescript-operations',
+        'typescript-react-apollo',
+        'typescript-mongodb'
       ],
+      config: {
+        declarationKind: 'class',
+        withHooks: true
+        // withComponent: false,
+        // withHOC: false,
+        // avoidOptionals: false,
+        // preResolveTypes: false
+      }
+    },
+    ['libs/project.de/util/graphql/src/lib/generated.ts']: {
+      // documents: [
+      //   'libs/project.de/util/graphql/src/lib/documents/**/*.gql',
+      //   'libs/shared/util/graphql/src/lib/documents/queries/*.gql',
+      //   'libs/shared/util/graphql/src/lib/documents/mutations/admin/*.gql',
+      //   'libs/shared/util/graphql/src/lib/documents/queries/admin/*.gql'
+      // ],
       plugins: [
         'typescript',
         'typescript-operations',
         'typescript-react-apollo',
         'typescript-mongodb'
       ],
-      // preset: 'client',
       config: {
         declarationKind: 'class'
         // withHooks: false,

@@ -115,7 +115,7 @@ export class JwtAuthGuard extends AuthGuard('jwt') {
     // You can throw an exception based on either "info" or "err" arguments
     console.log({ err, user, info, context, status })
     if (err || !user) {
-      throw err || new UnauthorizedException('Hello there')
+      throw err || new UnauthorizedException()
     }
     return user
   }
@@ -134,12 +134,14 @@ export class RolesGuard implements CanActivate {
       'isPublic',
       context.getHandler()
     )
+    if (isPublic) return true
 
     const ctx = GqlExecutionContext.create(context)
     const req = ctx.getContext().req
     const user = req.user
 
-    if (isPublic) return true
+    console.log({ user })
+
     if (user && roles) return hasRole(roles, user.roles)
     throw new UnauthorizedException()
   }

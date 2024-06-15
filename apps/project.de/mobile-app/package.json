@@ -27,7 +27,10 @@
     "@react-navigation/native-stack": "*",
     "@apollo/client": "*",
     "react-hook-form": "*",
-    "expo-secure-store": "*"
+    "expo-secure-store": "*",
+    "mongodb": "*",
+    "@graphql-typed-document-node/core": "*",
+    "graphql": "*"
   },
   "scripts": {
     "eas-build-pre-install": "cd ../../../ && node tools/scripts/eas-build-pre-install.mjs . apps/project.de/mobile-app && cp package-lock.json apps/project.de/mobile-app",

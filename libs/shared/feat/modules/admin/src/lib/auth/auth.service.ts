@@ -6,7 +6,7 @@ import { User } from '@jaqua/shared/graphql'
 
 import { UserService } from '../user/user.service'
 
-export type TJwtUserPayload = {
+export type TJwtUserPayload = User & {
   username: string
   sub: string
 }
@@ -48,6 +48,7 @@ class AuthService {
 
   async login(user: User): Promise<TAccessToken> {
     const payload: TJwtUserPayload = {
+      ...user,
       username: user.username,
       sub: user.id || ''
     }

@@ -26,6 +26,7 @@
     "serve:editor": "nx serve project.de-editor",
     "serve:main": "nx serve project.de-main",
     "serve:mobile-app": "nx start project.de-mobile-app",
+    "serve:mobile-app-android": "nx run-android project.de-mobile-app",
     "dev": "npm-run-all -l -p serve:api serve:editor serve:main",
     "typing": "npx graphql-codegen --config tools/scripts/typings/codegen.ts project.de",
     "typing:shared": "npx graphql-codegen --config tools/scripts/typings/codegen.ts shared"

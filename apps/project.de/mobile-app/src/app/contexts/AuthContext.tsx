@@ -1,6 +1,7 @@
 import { PropsWithChildren, createContext, useContext } from 'react'
 
 import useAuth from '@/hooks/useAuth'
+import { ApolloError } from '@apollo/client/errors'
 import { MutationResult } from '@apollo/client/react/types/types'
 
 type AuthContextType = {
