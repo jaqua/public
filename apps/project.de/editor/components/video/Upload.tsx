@@ -5,6 +5,8 @@
  */
 import React, { useRef } from 'react'
 
+import { resolve } from 'path'
+
 import DoneIcon from '@mui/icons-material/Done'
 import ErrorOutlineIcon from '@mui/icons-material/ErrorOutline'
 import Backdrop from '@mui/material/Backdrop'
@@ -14,7 +16,6 @@ import CircularProgress from '@mui/material/CircularProgress'
 import List from '@mui/material/List'
 import ListItem from '@mui/material/ListItem'
 import ListItemIcon from '@mui/material/ListItemIcon'
-import ListItemText from '@mui/material/ListItemText'
 import Paper from '@mui/material/Paper'
 import Typography from '@mui/material/Typography'
 
@@ -27,6 +28,17 @@ import {
 export type Props = {
   id?: string
 }
+
+const testing = async () =>
+  new Promise((res, rej) => {
+    setTimeout(() => {
+      resolve('File was found')
+    }, 500)
+    setTimeout(() => {
+      rej('File not found')
+    }, 1000)
+  })
+
 export const Upload = ({ id }: Props) => {
   const inputEl = useRef(null)
   const [upload] = useUploadFilesMutation({
@@ -60,7 +72,9 @@ export const Upload = ({ id }: Props) => {
         setResult(resultUpload)
 
         // Display results
-        if (resultUpload.find((d) => d.reason)) setResult(resultUpload)
+        if (resultUpload.find((d) => d.reason)) {
+          setResult(resultUpload)
+        }
       } catch (error) {
         inputEl.current.value = ''
         console.error(error)
@@ -84,6 +98,27 @@ export const Upload = ({ id }: Props) => {
           accept="video"
           onChange={onChange}
         />
+      </Button>
+
+      <Button
+        onClick={() => {
+          testing()
+            .then((res) => console.log(res))
+            .catch((err) => {
+              try {
+                throw 'File not found'
+              } catch (error) {
+                console.error(error)
+                console.error(err)
+              }
+            })
+        }}
+        variant="contained"
+        component="label"
+        fullWidth
+        disableElevation
+      >
+        Press Me
       </Button>
 
       {result ? (
@@ -117,9 +152,12 @@ export const Upload = ({ id }: Props) => {
                   <DoneIcon color="success" />
                 )}
               </ListItemIcon>
-              <ListItemText
+              {/* <ListItemText
                 primary={r.filename + ' ' + (r.reason ? '- ' + r.reason : '')}
-              />
+              /> */}
+              <pre>
+                <code>{JSON.stringify(r, null, 2)}</code>
+              </pre>
             </ListItem>
           ))}
         </List>

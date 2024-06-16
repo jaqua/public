@@ -13,9 +13,7 @@ const { assetExts, sourceExts } = defaultConfig.resolver
 const projectRoot = __dirname
 const workspaceRoot = path.resolve(projectRoot, '../../..')
 
-console.log({
-  '@jaqua/project.de/graphql': path.resolve(workspaceRoot, 'libs/project.de/util/config/src')
-});
+
 
 /**
  * Metro configuration
@@ -34,7 +32,7 @@ const customConfig = {
     unstable_enableSymlinks: true,
     unstable_enablePackageExports: true,
     extraNodeModules: {
-      '@jaqua/project.de/graphql': path.resolve(workspaceRoot, 'libs/project.de/util/config/src')
+      '@jaqua/project.de/graphql': path.resolve(workspaceRoot, 'libs/project.de/util/graphql/src')
     }
 
   }

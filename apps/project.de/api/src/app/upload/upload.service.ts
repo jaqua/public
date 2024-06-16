@@ -6,7 +6,8 @@
 import { Inject, Injectable } from '@nestjs/common'
 import fs from 'fs'
 import type { FileUpload } from 'graphql-upload/processRequest'
-import { Db } from 'mongodb'
+import { Db, GridFSBucket, ObjectId } from 'mongodb'
+import path from 'path'
 
 import { File, FileMetadata, UploadResult } from '@jaqua/project.de/graphql'
 import { getHash } from '@jaqua/shared/util/generator'
@@ -24,6 +25,39 @@ export class UploadService {
     @Inject('DATABASE_CONNECTION')
     private db: Db
   ) {}
+  // const gridFs = new GridFSBucket(this.db, { bucketName })
+
+  // gridFs.openDownloadStream(video._id as unknown as ObjectId)
+  async getFile(res: Response) {
+    const bucketName = 'video'
+    const Files = this.db.collection<File>(
+      bucketName ? bucketName + '.files' : 'fs.files'
+    )
+
+    console.log(Files, 'files collection')
+    try {
+      const videoId = '666eaafa7137e9e22583b2cd'
+      // @ts-expect-error types are wrong
+      const video = await Files.findOne({ _id: new ObjectId(videoId) })
+
+      console.log({ video })
+
+      const gfs = new GridFSBucket(this.db, { bucketName })
+      const stream = gfs.openDownloadStreamByName(video.filename, { start: 0 })
+
+      const tempPath = path.resolve(__dirname, 'temporary')
+
+      if (!fs.existsSync(tempPath)) {
+        fs.mkdirSync(tempPath)
+      }
+
+      stream.pipe(fs.createWriteStream(path.resolve(tempPath, video.filename)))
+      return video
+    } catch (error) {
+      console.error(error)
+      throw error
+    }
+  }
 
   async uploadFiles(
     files: Array<Promise<File>>,
