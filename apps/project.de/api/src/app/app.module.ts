@@ -7,6 +7,7 @@ import { Module } from '@nestjs/common'
 import { ConfigModule } from '@nestjs/config'
 import { GraphQLModule } from '@nestjs/graphql'
 import GraphQLUpload from 'graphql-upload/GraphQLUpload.js'
+import * as path from 'path'
 
 import { AuthModule, UserModule } from '@jaqua/modules/admin'
 
@@ -20,8 +21,11 @@ export const domain = 'project.de'
 
 const isProduction = process.env.NODE_ENV === 'production'
 const root = isProduction ? './' : 'apps/' + domain + '/api/'
-const envFilePath = [root + (isProduction ? '.env' : '.env.development')]
-const typePaths = [root + '**/*.graphql']
+
+const envFilePath = [
+  path.join(root, isProduction ? '.env' : '.env.development')
+]
+const typePaths = ['./apps/project.de/api/src/**/*.graphql']
 if (!isProduction) {
   envFilePath.push('.env.local')
   typePaths.push(
@@ -41,7 +45,7 @@ export const corsOptions = { credentials: true, origin }
 
 @Module({
   imports: [
-    ConfigModule.forRoot({ envFilePath }),
+    ConfigModule.forRoot({ envFilePath, isGlobal: true }),
     GraphQLModule.forRoot<ApolloDriverConfig>({
       driver: ApolloDriver,
       resolvers: { Upload: GraphQLUpload },

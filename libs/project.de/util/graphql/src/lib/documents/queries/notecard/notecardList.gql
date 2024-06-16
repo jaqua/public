@@ -2,6 +2,12 @@ query notecardList {
   notecardList {
     id
     title
+    slug
+    category
+    synonyms
+    intro
+    content
+    type
     createdAt
   }
 }

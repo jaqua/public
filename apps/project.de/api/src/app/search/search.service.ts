@@ -28,7 +28,7 @@ export class SearchService {
    * @param {string} input.target - User type
    * @return {Array}
    */
-  async search({ term, target }): Promise<Array<any>> {
+  async search({ term, target }) {
     assert.string(term)
     assert.string(target)
 
@@ -53,7 +53,7 @@ export class SearchService {
 
       const q = Content.find(query)
       // User should only get title and type of finalized datasets via search module
-      const result = await q.project(projection).toArray()
+      const result = await q.project<ContentDataset>(projection).toArray()
       return result
     } catch (error) {
       console.error(error)

@@ -1,43 +1,60 @@
-import AuthFormContainer from "@/components/containers/AuthFormContainer";
-import ThemeConfig from "@/constants/myTheme";
-import { LoginStackScreenProps } from "@/types/navigation.types";
-import { useCallback, useState } from "react";
-import { Pressable, StyleSheet, Text, TextInput, View } from "react-native";
-import { ArrowLeftIcon } from "react-native-heroicons/solid";
-type RegisterFormProps = LoginStackScreenProps<"RegisterForm">;
+import { useForm } from 'react-hook-form'
+import { Alert, Pressable, StyleSheet, Text, View } from 'react-native'
+import { ArrowLeftIcon } from 'react-native-heroicons/solid'
+
+import AuthFormContainer from '@/components/containers/AuthFormContainer'
+import ThemeConfig from '@/constants/myTheme'
+import { LoginStackScreenProps } from '@/types/navigation.types'
+import { gql } from '@apollo/client'
+
+import ProfileInput from './inputs/ProfileInput'
+
+type RegisterFormProps = LoginStackScreenProps<'RegisterForm'>
+
+// const REGISTER_DATA = gql``
 
 const RegisterForm = ({ navigation }: RegisterFormProps) => {
-  const onGoBack = useCallback(() => {
-    navigation.goBack();
-  }, []);
+  const { control, handleSubmit } = useForm()
+
+  const onGoBack = () => {
+    navigation.goBack()
+  }
+
+  const onSubmit = (data: any) => {
+    Alert.alert(JSON.stringify(data))
+    console.log(data)
+  }
+
   return (
-    <View
-      style={styles.wrapper}
-      className="h-full container  justify-center">
+    <View style={styles.wrapper} className="h-full container  justify-center">
       <AuthFormContainer>
         <Pressable
           onPress={onGoBack}
-          className="flex-row items-center space-x-2 pb-10">
-          <ArrowLeftIcon
-            size={30}
-            color={"#ffffff"}
-          />
+          className="flex-row items-center space-x-2 pb-10"
+        >
+          <ArrowLeftIcon size={30} color={'#ffffff'} />
           <Text className="text-white">Go Back</Text>
         </Pressable>
 
         <ProfileInput
+          control={control}
+          name="username"
           defaultValue=""
           placeholder="Email"
           title="Username/Email"
         />
 
         <ProfileInput
+          name="password"
+          control={control}
           defaultValue=""
           placeholder="Password"
           title="Password"
           secure
         />
         <ProfileInput
+          control={control}
+          name="confirm_password"
           defaultValue=""
           placeholder=""
           title="Confirm Password"
@@ -45,7 +62,10 @@ const RegisterForm = ({ navigation }: RegisterFormProps) => {
         />
 
         <View className="pt-10">
-          <Pressable className="w-full h-14 rounded-full border-2 border-white items-center justify-center">
+          <Pressable
+            onPress={handleSubmit(onSubmit)}
+            className="w-full h-14 rounded-full border-2 border-white items-center justify-center"
+          >
             <Text className="text-white font-semibold text-[28px]">Submit</Text>
           </Pressable>
         </View>
@@ -53,9 +73,10 @@ const RegisterForm = ({ navigation }: RegisterFormProps) => {
         <View className="pt-10">
           <Pressable
             onPress={() => {
-              navigation.navigate("LoginForm");
+              navigation.navigate('LoginForm')
             }}
-            className="w-full h-14 rounded-full border-2 border-white items-center justify-center">
+            className="w-full h-14 rounded-full border-2 border-white items-center justify-center"
+          >
             <Text className="text-white font-semibold text-[28px]">
               Sign In
             </Text>
@@ -64,51 +85,23 @@ const RegisterForm = ({ navigation }: RegisterFormProps) => {
 
         <Pressable
           onPress={() => {
-            navigation.navigate("ForgotPasswordForm");
+            navigation.navigate('ForgotPasswordForm')
           }}
-          className="pt-10">
+          className="pt-10"
+        >
           <Text className="text-center text-secondary text-xl">
             Forgot Password ?
           </Text>
         </Pressable>
       </AuthFormContainer>
     </View>
-  );
-};
-
-type ProfileInputProps = {
-  title: string;
-  placeholder: string;
-  defaultValue: string;
-  secure?: boolean;
-};
-const ProfileInput = ({
-  title,
-  placeholder,
-  defaultValue,
-  secure,
-}: ProfileInputProps) => {
-  const [v, setV] = useState(defaultValue ? defaultValue : "");
-  return (
-    <View className="pt-5">
-      <Text className="text-white">{title}</Text>
-      <TextInput
-        placeholderTextColor={"#aaa"}
-        className="w-full py-2 text-lg border-b-2 border-accent text-white placeholder"
-        onChangeText={setV}
-        value={v}
-        placeholder={placeholder}
-        keyboardType="web-search"
-        secureTextEntry={!!secure}
-      />
-    </View>
-  );
-};
+  )
+}
 
 const styles = StyleSheet.create({
   wrapper: {
-    backgroundColor: ThemeConfig().primary.opacity(0.4),
-  },
-});
+    backgroundColor: ThemeConfig().primary.opacity(0.4)
+  }
+})
 
-export default RegisterForm;
+export default RegisterForm

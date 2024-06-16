@@ -4,9 +4,11 @@
  * @copyright     © 2023-2024 by J. Quader
  */
 import ffmpeg, { FfprobeData } from 'fluent-ffmpeg'
+import * as fs from 'fs'
 import { ReadStream, createWriteStream, renameSync, unlinkSync } from 'fs'
 import type { FileUpload } from 'graphql-upload/processRequest'
 import { Db, GridFSBucket, GridFSBucketReadStream } from 'mongodb'
+import { default as nodePath, default as path } from 'path'
 
 import { File, FileMetadata, UploadResult } from '@jaqua/shared/graphql'
 
@@ -61,6 +63,12 @@ export const createTemporaryFile = async (
     await new Promise<void>((resolve) => {
       console.log('Create temporary file ' + path)
 
+      const dirPath = nodePath.dirname(path)
+
+      if (!fs.existsSync(dirPath)) {
+        fs.mkdirSync(dirPath, { recursive: true })
+      }
+
       const writeStream = createWriteStream(path)
       readStream.pipe(writeStream)
       writeStream.on('finish', resolve)
@@ -86,8 +94,11 @@ export async function reencodeVideo(
   width: number,
   dimension: Array<number>
 ): Promise<Result> {
-  const path = 'tmp/' + filename
-  const output = 'tmp/' + hash + '.mp4'
+  // const path = 'tmp/' + filename
+  const path = nodePath.join(__dirname, './tmp', filename)
+  const output = nodePath.join(__dirname, './tmp', hash + '.mp4')
+
+  console.log({ path })
 
   await createTemporaryFile(readStream, path)
   if (contentType === 'video/mp4' && codec_name === 'h264' && width <= 1280) {
@@ -126,20 +137,24 @@ export async function createLocalScreenshot(
   hash: string,
   position?: number
 ): Promise<string> {
-  const folder = 'tmp'
-  const filename = hash + '.png'
+  const folder = path.resolve(__dirname, 'tmp')
+  const outputFileName = hash + '.png'
+  const inputFileName = hash + '.mp4'
   return new Promise((resolve, reject) => {
-    console.log('Start creating screenshot ' + filename)
+    console.log('Start creating screenshot ' + inputFileName)
 
-    ffmpeg(folder + '/' + hash + '.mp4')
+    const inputPath = path.join(folder, inputFileName)
+    const outputPath = path.join(folder, outputFileName)
+
+    ffmpeg(inputPath)
       .screenshots({
         timestamps: position ? [position] : ['50%'],
-        filename,
+        filename: outputFileName,
         folder
       })
       .on('end', () => {
         console.log('Screenshot created')
-        resolve(folder + '/' + filename)
+        resolve(outputPath)
       })
       .on('error', (error) => {
         console.error('Error generating screenshot', error)

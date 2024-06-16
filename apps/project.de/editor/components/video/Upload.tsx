@@ -43,13 +43,20 @@ export const Upload = ({ id }: Props) => {
   async function onChange({ target: { validity, files } }) {
     const bucketName = 'video'
 
+    console.log(validity, Array.from(files))
+
+    // const state = true
+    // if (state) return state
+
     if (validity.valid && files?.[0]) {
       setUploading(true)
       try {
         // Upload file
         const {
           data: { uploadFiles: resultUpload }
-        } = await upload({ variables: { files, bucketName } })
+        } = await upload({
+          variables: { files, bucketName }
+        })
         setResult(resultUpload)
 
         // Display results

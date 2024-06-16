@@ -17,6 +17,11 @@ export class Scalars {
   Upload: any;
 };
 
+export class AccessToken {
+  __typename?: 'AccessToken';
+  access_token: Scalars['String'];
+};
+
 export class AddUserInput {
   professionalGroup?: InputMaybe<Scalars['String']>;
   roles: Array<InputMaybe<Scalars['String']>>;
@@ -96,6 +101,7 @@ export class Mutation {
   __typename?: 'Mutation';
   addUser?: Maybe<Scalars['ID']>;
   changePwd?: Maybe<Scalars['Boolean']>;
+  login?: Maybe<AccessToken>;
   notecardAdd?: Maybe<Scalars['String']>;
   notecardRemove?: Maybe<Scalars['Boolean']>;
   notecardUpdate?: Maybe<Scalars['Int']>;
@@ -103,7 +109,6 @@ export class Mutation {
   resetPwd?: Maybe<Scalars['Boolean']>;
   uploadFiles?: Maybe<Array<Maybe<UploadResult>>>;
   userUpdate?: Maybe<Scalars['Boolean']>;
-  validateUser?: Maybe<User>;
   videoRemove?: Maybe<Scalars['Boolean']>;
   videoUpdateContent?: Maybe<Scalars['Int']>;
 };
@@ -116,6 +121,11 @@ export class MutationAddUserArgs {
 
 export class MutationChangePwdArgs {
   input: ChangePwdInput;
+};
+
+
+export class MutationLoginArgs {
+  input: UserInput;
 };
 
 
@@ -152,11 +162,6 @@ export class MutationUploadFilesArgs {
 
 export class MutationUserUpdateArgs {
   input: UserUpdateInput;
-};
-
-
-export class MutationValidateUserArgs {
-  input: ValidateUserInput;
 };
 
 
@@ -311,6 +316,11 @@ export class UserData {
   username: Scalars['String'];
 };
 
+export class UserInput {
+  password: Scalars['String'];
+  username: Scalars['String'];
+};
+
 export class UserParam {
   username: Scalars['String'];
 };
@@ -318,11 +328,6 @@ export class UserParam {
 export class UserUpdateInput {
   professionalGroup?: InputMaybe<Scalars['String']>;
   roles: Array<InputMaybe<Scalars['String']>>;
-  username: Scalars['String'];
-};
-
-export class ValidateUserInput {
-  password: Scalars['String'];
   username: Scalars['String'];
 };
 
@@ -418,7 +423,7 @@ export type NotecardContentQuery = { __typename?: 'Query', notecardContent?: { _
 export type NotecardListQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type NotecardListQuery = { __typename?: 'Query', notecardList?: Array<{ __typename?: 'Notecard', id: string, title: string, createdAt?: any | null } | null> | null };
+export type NotecardListQuery = { __typename?: 'Query', notecardList?: Array<{ __typename?: 'Notecard', id: string, title: string, slug: string, category?: Array<string> | null, synonyms?: Array<string> | null, intro?: string | null, content?: string | null, type?: string | null, createdAt?: any | null } | null> | null };
 
 export type GetFilesQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -762,6 +767,12 @@ export const NotecardListDocument = gql`
   notecardList {
     id
     title
+    slug
+    category
+    synonyms
+    intro
+    content
+    type
     createdAt
   }
 }

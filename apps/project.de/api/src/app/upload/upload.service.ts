@@ -96,6 +96,7 @@ export class UploadService {
 
             // Create local screenshot file
             const pathToLocalScreenshot = await createLocalScreenshot(hash)
+
             // And save screenshot file to db
             const thumbId = await uploadFileToGridFS(
               this.db,
@@ -110,6 +111,7 @@ export class UploadService {
               bucketName
             )
             metadata['screenshotId'] = thumbId
+            metadata['filename'] = filename
 
             const fileId = await uploadFileToGridFS(
               this.db,
@@ -120,8 +122,6 @@ export class UploadService {
               pathToLocalVideofile,
               bucketName
             )
-
-            metadata['filename'] = filename
 
             resolve({ id: fileId, thumbId, filename })
           }
