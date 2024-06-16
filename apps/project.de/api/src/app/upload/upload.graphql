@@ -39,6 +39,7 @@ type UploadResult {
 
 type Query {
   getFiles: [File]
+  getUploadedFile: File
 }
 
 type Mutation {

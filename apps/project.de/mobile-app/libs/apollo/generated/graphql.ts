@@ -1,3 +1,5 @@
+/* eslint-disable */
+import { TypedDocumentNode as DocumentNode } from '@graphql-typed-document-node/core';
 import { gql } from '@apollo/client';
 import * as Apollo from '@apollo/client';
 export type Maybe<T> = T | null;
@@ -5,225 +7,227 @@ export type InputMaybe<T> = Maybe<T>;
 export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
 export type MakeOptional<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]?: Maybe<T[SubKey]> };
 export type MakeMaybe<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]: Maybe<T[SubKey]> };
+export type MakeEmpty<T extends { [key: string]: unknown }, K extends keyof T> = { [_ in K]?: never };
+export type Incremental<T> = T | { [P in keyof T]?: P extends ' $fragmentName' | '__typename' ? T[P] : never };
 const defaultOptions = {} as const;
 /** All built-in and custom scalars, mapped to their actual values */
-export class Scalars {
-  ID: string;
-  String: string;
-  Boolean: boolean;
-  Int: number;
-  Float: number;
-  Date: any;
-  Upload: any;
+export type Scalars = {
+  ID: { input: string; output: string; }
+  String: { input: string; output: string; }
+  Boolean: { input: boolean; output: boolean; }
+  Int: { input: number; output: number; }
+  Float: { input: number; output: number; }
+  Date: { input: any; output: any; }
+  Upload: { input: any; output: any; }
 };
 
-export class AccessToken {
+export type AccessToken = {
   __typename?: 'AccessToken';
-  access_token: Scalars['String'];
+  access_token: Scalars['String']['output'];
 };
 
-export class AddUserInput {
-  professionalGroup?: InputMaybe<Scalars['String']>;
-  roles: Array<InputMaybe<Scalars['String']>>;
-  username: Scalars['String'];
+export type AddUserInput = {
+  professionalGroup?: InputMaybe<Scalars['String']['input']>;
+  roles: Array<InputMaybe<Scalars['String']['input']>>;
+  username: Scalars['String']['input'];
 };
 
-export class ChangePwdInput {
-  password: Scalars['String'];
-  username: Scalars['String'];
+export type ChangePwdInput = {
+  password: Scalars['String']['input'];
+  username: Scalars['String']['input'];
 };
 
-export class ContentDataset {
+export type ContentDataset = {
   __typename?: 'ContentDataset';
-  category?: Maybe<Array<Maybe<Scalars['String']>>>;
-  communicationIsClosed?: Maybe<Scalars['Boolean']>;
-  id: Scalars['ID'];
+  category?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
+  communicationIsClosed?: Maybe<Scalars['Boolean']['output']>;
+  id: Scalars['ID']['output'];
   isEdited?: Maybe<ContentStatus>;
   isFinalized?: Maybe<ContentStatus>;
   isReviewed?: Maybe<ContentStatus>;
-  slug: Scalars['String'];
-  synonyms?: Maybe<Array<Maybe<Scalars['String']>>>;
-  title: Scalars['String'];
-  type?: Maybe<Scalars['String']>;
+  slug: Scalars['String']['output'];
+  synonyms?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
+  title: Scalars['String']['output'];
+  type?: Maybe<Scalars['String']['output']>;
 };
 
-export class ContentStatus {
+export type ContentStatus = {
   __typename?: 'ContentStatus';
-  timestamp?: Maybe<Scalars['Int']>;
-  user?: Maybe<Scalars['String']>;
+  timestamp?: Maybe<Scalars['Int']['output']>;
+  user?: Maybe<Scalars['String']['output']>;
 };
 
-export class Error {
+export type Error = {
   __typename?: 'Error';
-  location?: Maybe<Scalars['String']>;
-  message?: Maybe<Scalars['String']>;
-  path?: Maybe<Scalars['String']>;
-  statusCode?: Maybe<Scalars['Int']>;
+  location?: Maybe<Scalars['String']['output']>;
+  message?: Maybe<Scalars['String']['output']>;
+  path?: Maybe<Scalars['String']['output']>;
+  statusCode?: Maybe<Scalars['Int']['output']>;
 };
 
-export class File {
+export type File = {
   __typename?: 'File';
-  _id: Scalars['ID'];
-  chunkSize?: Maybe<Scalars['Int']>;
-  contentType: Scalars['String'];
-  filename: Scalars['String'];
-  length?: Maybe<Scalars['Int']>;
+  _id: Scalars['ID']['output'];
+  chunkSize?: Maybe<Scalars['Int']['output']>;
+  contentType: Scalars['String']['output'];
+  filename: Scalars['String']['output'];
+  length?: Maybe<Scalars['Int']['output']>;
   metadata?: Maybe<FileMetadata>;
-  uploadDate?: Maybe<Scalars['Date']>;
+  uploadDate?: Maybe<Scalars['Date']['output']>;
 };
 
-export class FileMetadata {
+export type FileMetadata = {
   __typename?: 'FileMetadata';
-  children?: Maybe<Array<Maybe<Scalars['ID']>>>;
-  codec?: Maybe<Scalars['String']>;
-  date?: Maybe<Scalars['Date']>;
-  duration?: Maybe<Scalars['Float']>;
-  editedId?: Maybe<Scalars['ID']>;
-  filename?: Maybe<Scalars['String']>;
-  fullId?: Maybe<Scalars['ID']>;
-  height?: Maybe<Scalars['Int']>;
-  mainId?: Maybe<Scalars['ID']>;
-  name?: Maybe<Scalars['String']>;
-  parent?: Maybe<Scalars['ID']>;
-  smallId?: Maybe<Scalars['ID']>;
-  thumbnailId?: Maybe<Scalars['ID']>;
-  uploadDate?: Maybe<Scalars['Date']>;
-  versionName?: Maybe<Scalars['String']>;
-  width?: Maybe<Scalars['Int']>;
+  children?: Maybe<Array<Maybe<Scalars['ID']['output']>>>;
+  codec?: Maybe<Scalars['String']['output']>;
+  date?: Maybe<Scalars['Date']['output']>;
+  duration?: Maybe<Scalars['Float']['output']>;
+  editedId?: Maybe<Scalars['ID']['output']>;
+  filename?: Maybe<Scalars['String']['output']>;
+  fullId?: Maybe<Scalars['ID']['output']>;
+  height?: Maybe<Scalars['Int']['output']>;
+  mainId?: Maybe<Scalars['ID']['output']>;
+  name?: Maybe<Scalars['String']['output']>;
+  parent?: Maybe<Scalars['ID']['output']>;
+  smallId?: Maybe<Scalars['ID']['output']>;
+  thumbnailId?: Maybe<Scalars['ID']['output']>;
+  uploadDate?: Maybe<Scalars['Date']['output']>;
+  versionName?: Maybe<Scalars['String']['output']>;
+  width?: Maybe<Scalars['Int']['output']>;
 };
 
-export class LoginUserInput {
-  password: Scalars['String'];
-  username: Scalars['String'];
+export type LoginUserInput = {
+  password: Scalars['String']['input'];
+  username: Scalars['String']['input'];
 };
 
-export class Mutation {
+export type Mutation = {
   __typename?: 'Mutation';
-  addUser?: Maybe<Scalars['ID']>;
-  changePwd?: Maybe<Scalars['Boolean']>;
+  addUser?: Maybe<Scalars['ID']['output']>;
+  changePwd?: Maybe<Scalars['Boolean']['output']>;
   login?: Maybe<AccessToken>;
-  notecardAdd?: Maybe<Scalars['String']>;
-  notecardRemove?: Maybe<Scalars['Boolean']>;
-  notecardUpdate?: Maybe<Scalars['Int']>;
-  removeUser?: Maybe<Scalars['Boolean']>;
-  resetPwd?: Maybe<Scalars['Boolean']>;
+  notecardAdd?: Maybe<Scalars['String']['output']>;
+  notecardRemove?: Maybe<Scalars['Boolean']['output']>;
+  notecardUpdate?: Maybe<Scalars['Int']['output']>;
+  removeUser?: Maybe<Scalars['Boolean']['output']>;
+  resetPwd?: Maybe<Scalars['Boolean']['output']>;
   uploadFiles?: Maybe<Array<Maybe<UploadResult>>>;
-  userUpdate?: Maybe<Scalars['Boolean']>;
-  videoRemove?: Maybe<Scalars['Boolean']>;
-  videoUpdateContent?: Maybe<Scalars['Int']>;
+  userUpdate?: Maybe<Scalars['Boolean']['output']>;
+  videoRemove?: Maybe<Scalars['Boolean']['output']>;
+  videoUpdateContent?: Maybe<Scalars['Int']['output']>;
 };
 
 
-export class MutationAddUserArgs {
+export type MutationAddUserArgs = {
   input: AddUserInput;
 };
 
 
-export class MutationChangePwdArgs {
+export type MutationChangePwdArgs = {
   input: ChangePwdInput;
 };
 
 
-export class MutationLoginArgs {
+export type MutationLoginArgs = {
   input: UserInput;
 };
 
 
-export class MutationNotecardAddArgs {
+export type MutationNotecardAddArgs = {
   input: NotecardAddInput;
 };
 
 
-export class MutationNotecardRemoveArgs {
+export type MutationNotecardRemoveArgs = {
   input: NotecardRemoveInput;
 };
 
 
-export class MutationNotecardUpdateArgs {
+export type MutationNotecardUpdateArgs = {
   input: NotecardUpdateInput;
 };
 
 
-export class MutationRemoveUserArgs {
+export type MutationRemoveUserArgs = {
   input: RemoveUserInput;
 };
 
 
-export class MutationResetPwdArgs {
+export type MutationResetPwdArgs = {
   input: ResetPwdInput;
 };
 
 
-export class MutationUploadFilesArgs {
-  bucketName?: InputMaybe<Scalars['String']>;
-  files: Array<Scalars['Upload']>;
+export type MutationUploadFilesArgs = {
+  bucketName?: InputMaybe<Scalars['String']['input']>;
+  files: Array<Scalars['Upload']['input']>;
 };
 
 
-export class MutationUserUpdateArgs {
+export type MutationUserUpdateArgs = {
   input: UserUpdateInput;
 };
 
 
-export class MutationVideoRemoveArgs {
+export type MutationVideoRemoveArgs = {
   input: VideoRemoveInput;
 };
 
 
-export class MutationVideoUpdateContentArgs {
+export type MutationVideoUpdateContentArgs = {
   input: VideoUpdateContentInput;
 };
 
-export class Notecard {
+export type Notecard = {
   __typename?: 'Notecard';
-  category?: Maybe<Array<Scalars['String']>>;
-  content?: Maybe<Scalars['String']>;
-  createdAt?: Maybe<Scalars['Date']>;
-  id: Scalars['ID'];
-  intro?: Maybe<Scalars['String']>;
-  slug: Scalars['String'];
-  synonyms?: Maybe<Array<Scalars['String']>>;
-  title: Scalars['String'];
+  category?: Maybe<Array<Scalars['String']['output']>>;
+  content?: Maybe<Scalars['String']['output']>;
+  createdAt?: Maybe<Scalars['Date']['output']>;
+  id: Scalars['ID']['output'];
+  intro?: Maybe<Scalars['String']['output']>;
+  slug: Scalars['String']['output'];
+  synonyms?: Maybe<Array<Scalars['String']['output']>>;
+  title: Scalars['String']['output'];
   training?: Maybe<TrainingCompleted>;
-  type?: Maybe<Scalars['String']>;
-  updatedAt?: Maybe<Scalars['Date']>;
+  type?: Maybe<Scalars['String']['output']>;
+  updatedAt?: Maybe<Scalars['Date']['output']>;
 };
 
-export class NotecardAddInput {
-  category?: InputMaybe<Array<Scalars['String']>>;
-  content: Scalars['String'];
-  intro?: InputMaybe<Scalars['String']>;
-  synonyms?: InputMaybe<Array<Scalars['String']>>;
-  title: Scalars['String'];
-  type: Scalars['String'];
+export type NotecardAddInput = {
+  category?: InputMaybe<Array<Scalars['String']['input']>>;
+  content: Scalars['String']['input'];
+  intro?: InputMaybe<Scalars['String']['input']>;
+  synonyms?: InputMaybe<Array<Scalars['String']['input']>>;
+  title: Scalars['String']['input'];
+  type: Scalars['String']['input'];
 };
 
-export class NotecardContentParam {
-  name: Scalars['String'];
-  testId?: InputMaybe<Scalars['ID']>;
-  value: Scalars['String'];
+export type NotecardContentParam = {
+  name: Scalars['String']['input'];
+  testId?: InputMaybe<Scalars['ID']['input']>;
+  value: Scalars['String']['input'];
 };
 
-export class NotecardRemoveInput {
-  id: Scalars['ID'];
+export type NotecardRemoveInput = {
+  id: Scalars['ID']['input'];
 };
 
-export class NotecardUpdateInput {
-  category?: InputMaybe<Array<Scalars['String']>>;
-  content: Scalars['String'];
-  id: Scalars['ID'];
-  intro?: InputMaybe<Scalars['String']>;
-  synonyms?: InputMaybe<Array<Scalars['String']>>;
-  title: Scalars['String'];
-  type?: InputMaybe<Scalars['String']>;
+export type NotecardUpdateInput = {
+  category?: InputMaybe<Array<Scalars['String']['input']>>;
+  content: Scalars['String']['input'];
+  id: Scalars['ID']['input'];
+  intro?: InputMaybe<Scalars['String']['input']>;
+  synonyms?: InputMaybe<Array<Scalars['String']['input']>>;
+  title: Scalars['String']['input'];
+  type?: InputMaybe<Scalars['String']['input']>;
 };
 
-export class Query {
+export type Query = {
   __typename?: 'Query';
   error?: Maybe<Error>;
   getFiles?: Maybe<Array<Maybe<File>>>;
   getList?: Maybe<Array<Maybe<ContentDataset>>>;
-  getUploadedFile?: Maybe<Scalars['String']>;
+  getUploadedFile?: Maybe<Scalars['String']['output']>;
   getUser?: Maybe<User>;
   getUsers?: Maybe<Array<Maybe<User>>>;
   notecardContent?: Maybe<Notecard>;
@@ -232,136 +236,136 @@ export class Query {
 };
 
 
-export class QueryGetListArgs {
-  type: Scalars['String'];
+export type QueryGetListArgs = {
+  type: Scalars['String']['input'];
 };
 
 
-export class QueryGetUserArgs {
+export type QueryGetUserArgs = {
   param?: InputMaybe<UserParam>;
 };
 
 
-export class QueryNotecardContentArgs {
+export type QueryNotecardContentArgs = {
   param: NotecardContentParam;
 };
 
 
-export class QuerySearchArgs {
+export type QuerySearchArgs = {
   param: SearchParam;
 };
 
-export class RemoveUserInput {
-  username: Scalars['String'];
+export type RemoveUserInput = {
+  username: Scalars['String']['input'];
 };
 
-export class ResetPwdInput {
-  username: Scalars['String'];
+export type ResetPwdInput = {
+  username: Scalars['String']['input'];
 };
 
-export class Result {
+export type Result = {
   __typename?: 'Result';
-  insertedId?: Maybe<Scalars['ID']>;
-  insertedIds?: Maybe<Array<Scalars['ID']>>;
+  insertedId?: Maybe<Scalars['ID']['output']>;
+  insertedIds?: Maybe<Array<Scalars['ID']['output']>>;
   result?: Maybe<WriteResult>;
 };
 
-export class SearchParam {
-  target: Scalars['String'];
-  term: Scalars['String'];
+export type SearchParam = {
+  target: Scalars['String']['input'];
+  term: Scalars['String']['input'];
 };
 
-export class Status {
+export type Status = {
   __typename?: 'Status';
-  isCompleted?: Maybe<Scalars['Boolean']>;
-  isEdited?: Maybe<Scalars['Boolean']>;
-  isFinalized?: Maybe<Scalars['Boolean']>;
-  isReviewed?: Maybe<Scalars['Boolean']>;
+  isCompleted?: Maybe<Scalars['Boolean']['output']>;
+  isEdited?: Maybe<Scalars['Boolean']['output']>;
+  isFinalized?: Maybe<Scalars['Boolean']['output']>;
+  isReviewed?: Maybe<Scalars['Boolean']['output']>;
 };
 
-export class TrainingCompleted {
+export type TrainingCompleted = {
   __typename?: 'TrainingCompleted';
-  answer: Scalars['String'];
-  id: Scalars['ID'];
-  result: Scalars['Int'];
-  time: Scalars['Date'];
-  type: Scalars['String'];
+  answer: Scalars['String']['output'];
+  id: Scalars['ID']['output'];
+  result: Scalars['Int']['output'];
+  time: Scalars['Date']['output'];
+  type: Scalars['String']['output'];
 };
 
-export class UploadResult {
+export type UploadResult = {
   __typename?: 'UploadResult';
-  filename: Scalars['String'];
-  id?: Maybe<Scalars['ID']>;
-  reason?: Maybe<Scalars['String']>;
-  status: Scalars['String'];
-  thumbId?: Maybe<Scalars['ID']>;
+  filename: Scalars['String']['output'];
+  id?: Maybe<Scalars['ID']['output']>;
+  reason?: Maybe<Scalars['String']['output']>;
+  status: Scalars['String']['output'];
+  thumbId?: Maybe<Scalars['ID']['output']>;
 };
 
-export class User {
+export type User = {
   __typename?: 'User';
-  createdAt: Scalars['Date'];
-  id?: Maybe<Scalars['ID']>;
-  password: Scalars['String'];
-  professionalGroup?: Maybe<Scalars['String']>;
-  projects?: Maybe<Array<Maybe<Scalars['String']>>>;
-  roles?: Maybe<Array<Maybe<Scalars['String']>>>;
+  createdAt: Scalars['Date']['output'];
+  id?: Maybe<Scalars['ID']['output']>;
+  password: Scalars['String']['output'];
+  professionalGroup?: Maybe<Scalars['String']['output']>;
+  projects?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
+  roles?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
   training?: Maybe<Array<TrainingCompleted>>;
-  username: Scalars['String'];
+  username: Scalars['String']['output'];
 };
 
-export class UserData {
+export type UserData = {
   __typename?: 'UserData';
-  id: Scalars['ID'];
-  professionalGroup?: Maybe<Scalars['String']>;
-  roles?: Maybe<Array<Scalars['String']>>;
-  username: Scalars['String'];
+  id: Scalars['ID']['output'];
+  professionalGroup?: Maybe<Scalars['String']['output']>;
+  roles?: Maybe<Array<Scalars['String']['output']>>;
+  username: Scalars['String']['output'];
 };
 
-export class UserInput {
-  password: Scalars['String'];
-  username: Scalars['String'];
+export type UserInput = {
+  password: Scalars['String']['input'];
+  username: Scalars['String']['input'];
 };
 
-export class UserParam {
-  username: Scalars['String'];
+export type UserParam = {
+  username: Scalars['String']['input'];
 };
 
-export class UserUpdateInput {
-  professionalGroup?: InputMaybe<Scalars['String']>;
-  roles: Array<InputMaybe<Scalars['String']>>;
-  username: Scalars['String'];
+export type UserUpdateInput = {
+  professionalGroup?: InputMaybe<Scalars['String']['input']>;
+  roles: Array<InputMaybe<Scalars['String']['input']>>;
+  username: Scalars['String']['input'];
 };
 
-export class Video {
+export type Video = {
   __typename?: 'Video';
-  content?: Maybe<Scalars['String']>;
-  id: Scalars['ID'];
-  slug: Scalars['String'];
-  title: Scalars['String'];
-  type: Scalars['String'];
+  content?: Maybe<Scalars['String']['output']>;
+  id: Scalars['ID']['output'];
+  slug: Scalars['String']['output'];
+  title: Scalars['String']['output'];
+  type: Scalars['String']['output'];
 };
 
-export class VideoRemoveInput {
-  fileId: Scalars['ID'];
+export type VideoRemoveInput = {
+  fileId: Scalars['ID']['input'];
 };
 
-export class VideoUpdateContentInput {
-  content?: InputMaybe<Scalars['String']>;
-  id: Scalars['ID'];
+export type VideoUpdateContentInput = {
+  content?: InputMaybe<Scalars['String']['input']>;
+  id: Scalars['ID']['input'];
 };
 
-export class WriteResult {
+export type WriteResult = {
   __typename?: 'WriteResult';
-  n?: Maybe<Scalars['Int']>;
-  nInserted?: Maybe<Scalars['Int']>;
-  nModified?: Maybe<Scalars['Int']>;
-  nRemoved?: Maybe<Scalars['Int']>;
-  ok?: Maybe<Scalars['Int']>;
+  n?: Maybe<Scalars['Int']['output']>;
+  nInserted?: Maybe<Scalars['Int']['output']>;
+  nModified?: Maybe<Scalars['Int']['output']>;
+  nRemoved?: Maybe<Scalars['Int']['output']>;
+  ok?: Maybe<Scalars['Int']['output']>;
 };
 
-export class AdditionalEntityFields {
-  path?: InputMaybe<Scalars['String']>;
-  type?: InputMaybe<Scalars['String']>;
+export type AdditionalEntityFields = {
+  path?: InputMaybe<Scalars['String']['input']>;
+  type?: InputMaybe<Scalars['String']['input']>;
 };
 
 export type NotecardAddMutationVariables = Exact<{
@@ -386,8 +390,8 @@ export type NotecardUpdateMutationVariables = Exact<{
 export type NotecardUpdateMutation = { __typename?: 'Mutation', notecardUpdate?: number | null };
 
 export type UploadFilesMutationVariables = Exact<{
-  files: Array<Scalars['Upload']> | Scalars['Upload'];
-  bucketName?: InputMaybe<Scalars['String']>;
+  files: Array<Scalars['Upload']['input']> | Scalars['Upload']['input'];
+  bucketName?: InputMaybe<Scalars['String']['input']>;
 }>;
 
 
@@ -408,7 +412,7 @@ export type VideoUpdateContentMutationVariables = Exact<{
 export type VideoUpdateContentMutation = { __typename?: 'Mutation', videoUpdateContent?: number | null };
 
 export type GetListQueryVariables = Exact<{
-  type: Scalars['String'];
+  type: Scalars['String']['input'];
 }>;
 
 
@@ -483,6 +487,25 @@ export type ErrorQueryVariables = Exact<{ [key: string]: never; }>;
 
 export type ErrorQuery = { __typename?: 'Query', error?: { __typename?: 'Error', statusCode?: number | null, message?: string | null, location?: string | null, path?: string | null } | null };
 
+
+export const NotecardAddDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"notecardAdd"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"input"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"NotecardAddInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"notecardAdd"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"input"},"value":{"kind":"Variable","name":{"kind":"Name","value":"input"}}}]}]}}]} as unknown as DocumentNode<NotecardAddMutation, NotecardAddMutationVariables>;
+export const NotecardRemoveDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"notecardRemove"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"input"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"NotecardRemoveInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"notecardRemove"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"input"},"value":{"kind":"Variable","name":{"kind":"Name","value":"input"}}}]}]}}]} as unknown as DocumentNode<NotecardRemoveMutation, NotecardRemoveMutationVariables>;
+export const NotecardUpdateDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"notecardUpdate"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"input"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"NotecardUpdateInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"notecardUpdate"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"input"},"value":{"kind":"Variable","name":{"kind":"Name","value":"input"}}}]}]}}]} as unknown as DocumentNode<NotecardUpdateMutation, NotecardUpdateMutationVariables>;
+export const UploadFilesDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"uploadFiles"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"files"}},"type":{"kind":"NonNullType","type":{"kind":"ListType","type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"Upload"}}}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"bucketName"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"uploadFiles"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"files"},"value":{"kind":"Variable","name":{"kind":"Name","value":"files"}}},{"kind":"Argument","name":{"kind":"Name","value":"bucketName"},"value":{"kind":"Variable","name":{"kind":"Name","value":"bucketName"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"thumbId"}},{"kind":"Field","name":{"kind":"Name","value":"filename"}},{"kind":"Field","name":{"kind":"Name","value":"status"}},{"kind":"Field","name":{"kind":"Name","value":"reason"}}]}}]}}]} as unknown as DocumentNode<UploadFilesMutation, UploadFilesMutationVariables>;
+export const VideoRemoveDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"videoRemove"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"input"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"VideoRemoveInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"videoRemove"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"input"},"value":{"kind":"Variable","name":{"kind":"Name","value":"input"}}}]}]}}]} as unknown as DocumentNode<VideoRemoveMutation, VideoRemoveMutationVariables>;
+export const VideoUpdateContentDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"videoUpdateContent"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"input"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"VideoUpdateContentInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"videoUpdateContent"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"input"},"value":{"kind":"Variable","name":{"kind":"Name","value":"input"}}}]}]}}]} as unknown as DocumentNode<VideoUpdateContentMutation, VideoUpdateContentMutationVariables>;
+export const GetListDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"getList"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"type"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"getList"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"type"},"value":{"kind":"Variable","name":{"kind":"Name","value":"type"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"slug"}},{"kind":"Field","name":{"kind":"Name","value":"type"}}]}}]}}]} as unknown as DocumentNode<GetListQuery, GetListQueryVariables>;
+export const NotecardContentDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"notecardContent"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"param"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"NotecardContentParam"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"notecardContent"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"param"},"value":{"kind":"Variable","name":{"kind":"Name","value":"param"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"category"}},{"kind":"Field","name":{"kind":"Name","value":"synonyms"}},{"kind":"Field","name":{"kind":"Name","value":"intro"}},{"kind":"Field","name":{"kind":"Name","value":"content"}},{"kind":"Field","name":{"kind":"Name","value":"updatedAt"}},{"kind":"Field","name":{"kind":"Name","value":"training"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"type"}},{"kind":"Field","name":{"kind":"Name","value":"time"}},{"kind":"Field","name":{"kind":"Name","value":"answer"}},{"kind":"Field","name":{"kind":"Name","value":"result"}}]}}]}}]}}]} as unknown as DocumentNode<NotecardContentQuery, NotecardContentQueryVariables>;
+export const NotecardListDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"notecardList"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"notecardList"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"slug"}},{"kind":"Field","name":{"kind":"Name","value":"category"}},{"kind":"Field","name":{"kind":"Name","value":"synonyms"}},{"kind":"Field","name":{"kind":"Name","value":"intro"}},{"kind":"Field","name":{"kind":"Name","value":"content"}},{"kind":"Field","name":{"kind":"Name","value":"type"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}}]}}]}}]} as unknown as DocumentNode<NotecardListQuery, NotecardListQueryVariables>;
+export const GetFilesDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"getFiles"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"getFiles"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"_id"}},{"kind":"Field","name":{"kind":"Name","value":"metadata"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"parent"}},{"kind":"Field","name":{"kind":"Name","value":"fullId"}},{"kind":"Field","name":{"kind":"Name","value":"smallId"}},{"kind":"Field","name":{"kind":"Name","value":"thumbnailId"}},{"kind":"Field","name":{"kind":"Name","value":"height"}},{"kind":"Field","name":{"kind":"Name","value":"width"}}]}}]}}]}}]} as unknown as DocumentNode<GetFilesQuery, GetFilesQueryVariables>;
+export const AddUserDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"addUser"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"input"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"AddUserInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"addUser"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"input"},"value":{"kind":"Variable","name":{"kind":"Name","value":"input"}}}]}]}}]} as unknown as DocumentNode<AddUserMutation, AddUserMutationVariables>;
+export const ChangePwdDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"changePwd"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"input"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"ChangePwdInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"changePwd"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"input"},"value":{"kind":"Variable","name":{"kind":"Name","value":"input"}}}]}]}}]} as unknown as DocumentNode<ChangePwdMutation, ChangePwdMutationVariables>;
+export const RemoveUserDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"removeUser"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"input"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"RemoveUserInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"removeUser"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"input"},"value":{"kind":"Variable","name":{"kind":"Name","value":"input"}}}]}]}}]} as unknown as DocumentNode<RemoveUserMutation, RemoveUserMutationVariables>;
+export const ResetPwdDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"resetPwd"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"input"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"ResetPwdInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"resetPwd"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"input"},"value":{"kind":"Variable","name":{"kind":"Name","value":"input"}}}]}]}}]} as unknown as DocumentNode<ResetPwdMutation, ResetPwdMutationVariables>;
+export const UserUpdateDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"userUpdate"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"input"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"UserUpdateInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"userUpdate"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"input"},"value":{"kind":"Variable","name":{"kind":"Name","value":"input"}}}]}]}}]} as unknown as DocumentNode<UserUpdateMutation, UserUpdateMutationVariables>;
+export const GetUserDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"getUser"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"param"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"UserParam"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"getUser"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"param"},"value":{"kind":"Variable","name":{"kind":"Name","value":"param"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"username"}},{"kind":"Field","name":{"kind":"Name","value":"roles"}},{"kind":"Field","name":{"kind":"Name","value":"professionalGroup"}}]}}]}}]} as unknown as DocumentNode<GetUserQuery, GetUserQueryVariables>;
+export const GetUsersDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"getUsers"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"getUsers"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"username"}},{"kind":"Field","name":{"kind":"Name","value":"roles"}},{"kind":"Field","name":{"kind":"Name","value":"professionalGroup"}}]}}]}}]} as unknown as DocumentNode<GetUsersQuery, GetUsersQueryVariables>;
+export const ErrorDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"Error"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"error"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"statusCode"}},{"kind":"Field","name":{"kind":"Name","value":"message"}},{"kind":"Field","name":{"kind":"Name","value":"location"}},{"kind":"Field","name":{"kind":"Name","value":"path"}}]}}]}}]} as unknown as DocumentNode<ErrorQuery, ErrorQueryVariables>;
 
 export const NotecardAddDocument = gql`
     mutation notecardAdd($input: NotecardAddInput!) {
