@@ -3,6 +3,8 @@
   "$schema": "../../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "apps/project.de/mobile-app-e2e/src",
   "projectType": "application",
+  "tags": [],
+  "implicitDependencies": ["project.de-mobile-app"],
   "targets": {
     "build-ios": {
       "executor": "@nx/detox:build",
@@ -67,15 +69,7 @@
       }
     },
     "lint": {
-      "executor": "@nx/linter:eslint",
-      "outputs": ["{options.outputFile}"],
-      "options": {
-        "lintFilePatterns": [
-          "apps/project.de/mobile-app-e2e/**/*.{ts,tsx,js,jsx}"
-        ]
-      }
+      "executor": "@nx/eslint:lint"
     }
-  },
-  "tags": [],
-  "implicitDependencies": ["project.de-mobile-app"]
+  }
 }

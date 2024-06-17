@@ -3,22 +3,17 @@
   "$schema": "../../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "libs/shared/e2e-utils/src",
   "projectType": "library",
+  "tags": ["scope:shared", "type:util"],
   "targets": {
     "lint": {
-      "executor": "@nx/linter:eslint",
-      "options": {
-        "lintFilePatterns": ["libs/shared/e2e-utils/**/*.ts"]
-      },
-      "outputs": ["{options.outputFile}"]
+      "executor": "@nx/eslint:lint"
     },
     "test": {
       "executor": "@nx/jest:jest",
       "outputs": ["{workspaceRoot}/coverage/libs/shared/e2e-utils"],
       "options": {
-        "jestConfig": "libs/shared/e2e-utils/jest.config.ts",
-        "passWithNoTests": true
+        "jestConfig": "libs/shared/e2e-utils/jest.config.ts"
       }
     }
-  },
-  "tags": ["scope:shared", "type:util"]
+  }
 }

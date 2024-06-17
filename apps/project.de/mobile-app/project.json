@@ -1,6 +1,6 @@
 {
-  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
   "name": "project.de-mobile-app",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
   "projectType": "application",
   "sourceRoot": "apps/project.de/mobile-app/src",
   "tags": [],
@@ -22,37 +22,30 @@
         "output": "apps/project.de/mobile-app/dist"
       }
     },
-    "ensure-symlink": {
-      "executor": "@nx/expo:ensure-symlink",
-      "options": {}
-    },
     "export": {
-      "dependsOn": ["ensure-symlink", "sync-deps"],
+      "dependsOn": [
+        "sync-deps"
+      ],
       "executor": "@nx/expo:export",
       "options": {
-        "outputDir": "../../../dist/apps/project.de/mobile-app",
+        "outputDir": "dist/apps/project.de/mobile-app",
         "platform": "all"
-      }
-    },
-    "export-web": {
-      "executor": "@nx/expo:export",
-      "options": {
-        "bundler": "metro"
-      }
+      },
+      "outputs": [
+        "{options.outputDir}"
+      ]
     },
     "install": {
       "executor": "@nx/expo:install",
       "options": {}
     },
     "lint": {
-      "executor": "@nx/linter:eslint",
-      "options": {
-        "lintFilePatterns": ["apps/project.de/mobile-app/**/*.{ts,tsx,js,jsx}"]
-      },
-      "outputs": ["{options.outputFile}"]
+      "executor": "@nx/eslint:lint"
     },
     "prebuild": {
-      "dependsOn": ["ensure-symlink", "sync-deps"],
+      "dependsOn": [
+        "sync-deps"
+      ],
       "executor": "@nx/expo:prebuild",
       "options": {
         "clean": true,
@@ -61,14 +54,18 @@
       }
     },
     "run-android": {
-      "dependsOn": ["ensure-symlink", "sync-deps"],
+      "dependsOn": [
+        "sync-deps"
+      ],
       "executor": "@nx/expo:run",
       "options": {
         "platform": "android"
       }
     },
     "run-ios": {
-      "dependsOn": ["ensure-symlink", "sync-deps"],
+      "dependsOn": [
+        "sync-deps"
+      ],
       "executor": "@nx/expo:run",
       "options": {
         "platform": "ios"
@@ -81,7 +78,9 @@
       }
     },
     "start": {
-      "dependsOn": ["ensure-symlink", "sync-deps"],
+      "dependsOn": [
+        "sync-deps"
+      ],
       "executor": "@nx/expo:start",
       "options": {
         "port": 8081
@@ -96,18 +95,13 @@
       "options": {}
     },
     "test": {
-      "configurations": {
-        "ci": {
-          "ci": true,
-          "codeCoverage": true
-        }
-      },
       "executor": "@nx/jest:jest",
       "options": {
-        "jestConfig": "apps/project.de/mobile-app/jest.config.ts",
-        "passWithNoTests": true
+        "jestConfig": "apps/project.de/mobile-app/jest.config.ts"
       },
-      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"]
+      "outputs": [
+        "{workspaceRoot}/coverage/{projectRoot}"
+      ]
     },
     "update": {
       "executor": "@nx/expo:update",
