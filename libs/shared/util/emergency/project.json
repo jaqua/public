@@ -4,5 +4,6 @@
   "sourceRoot": "libs/shared/util/emergency/src",
   "projectType": "library",
   "tags": ["scope:shared", "type:util"],
+  "// targets": "to see all targets run: nx show project shared-util-emergency --web",
   "targets": {}
 }

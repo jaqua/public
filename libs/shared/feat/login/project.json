@@ -6,18 +6,13 @@
   "tags": ["type:feature", "scope:shared"],
   "targets": {
     "lint": {
-      "executor": "@nx/linter:eslint",
-      "outputs": ["{options.outputFile}"],
-      "options": {
-        "lintFilePatterns": ["libs/shared/feat/login/**/*.{ts,tsx,js,jsx}"]
-      }
+      "executor": "@nx/eslint:lint"
     },
     "test": {
       "executor": "@nx/jest:jest",
       "outputs": ["{workspaceRoot}/coverage/libs/shared/feat/login"],
       "options": {
-        "jestConfig": "libs/shared/feat/login/jest.config.ts",
-        "passWithNoTests": true
+        "jestConfig": "libs/shared/feat/login/jest.config.ts"
       }
     }
   }

@@ -17,3 +17,5 @@ migrations.json
 graphql-typings.ts
 
 README.md
+/.nx/cache
+/.nx/workspace-data

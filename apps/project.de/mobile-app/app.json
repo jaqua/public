@@ -2,11 +2,9 @@
   "expo": {
     "name": "mobile-app",
     "slug": "neonatologie",
-
     "version": "1.0.0",
     "orientation": "default",
     "userInterfaceStyle": "light",
-
     "icon": "./assets/icon.png",
     "splash": {
       "backgroundColor": "#333333",

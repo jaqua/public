@@ -3,22 +3,17 @@
   "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "libs/shared/data-access/db/src",
   "projectType": "library",
+  "tags": ["scope:shared", "type:data-access"],
   "targets": {
     "lint": {
-      "executor": "@nx/linter:eslint",
-      "outputs": ["{options.outputFile}"],
-      "options": {
-        "lintFilePatterns": ["libs/shared/data-access/db/**/*.ts"]
-      }
+      "executor": "@nx/eslint:lint"
     },
     "test": {
       "executor": "@nx/jest:jest",
       "outputs": ["{workspaceRoot}/coverage/libs/shared/data-access/db"],
       "options": {
-        "jestConfig": "libs/shared/data-access/db/jest.config.ts",
-        "passWithNoTests": true
+        "jestConfig": "libs/shared/data-access/db/jest.config.ts"
       }
     }
-  },
-  "tags": ["scope:shared", "type:data-access"]
+  }
 }

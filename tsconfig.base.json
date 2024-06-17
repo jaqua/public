@@ -21,7 +21,9 @@
       "@jaqua/auth": ["libs/shared/data-access/auth/src/index.ts"],
       "@jaqua/config": ["libs/shared/util/config/src/index.ts"],
       "@jaqua/db": ["libs/shared/data-access/db/src/index.ts"],
+      "@jaqua/modules/admin": ["libs/shared/feat/modules/admin/src/index.ts"],
       "@jaqua/modules/common": ["libs/shared/feat/modules/common/src/index.ts"],
+      "@jaqua/modules/upload": ["libs/shared/feat/modules/upload/src/index.ts"],
       "@jaqua/project.de/cache": ["libs/project.de/util/cache/src/index.ts"],
       "@jaqua/project.de/config": ["libs/project.de/util/config/src/index.ts"],
       "@jaqua/project.de/config/server": [
@@ -60,11 +62,9 @@
       "@jaqua/shared/feat/login": ["libs/shared/feat/login/src/index.ts"],
       "@jaqua/shared/feat/wrapper": ["libs/shared/feat/wrapper/src/index.ts"],
       "@jaqua/shared/graphql": ["libs/shared/util/graphql/src/index.ts"],
-      "@jaqua/modules/admin": ["libs/shared/feat/modules/admin/src/index.ts"],
       "@jaqua/shared/modules/article": [
         "libs/shared/feat/modules/article/src/index.ts"
       ],
-      "@jaqua/modules/upload": ["libs/shared/feat/modules/upload/src/index.ts"],
       "@jaqua/shared/util/action": ["libs/shared/util/action/src/index.ts"],
       "@jaqua/shared/util/apollo-link": [
         "libs/shared/util/apollo-link/src/index.ts"

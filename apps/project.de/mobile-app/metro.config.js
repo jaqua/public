@@ -9,11 +9,8 @@ const defaultConfig = getDefaultConfig(__dirname)
 
 const { assetExts, sourceExts } = defaultConfig.resolver
 
-
 const projectRoot = __dirname
 const workspaceRoot = path.resolve(projectRoot, '../../..')
-
-
 
 /**
  * Metro configuration
@@ -28,13 +25,13 @@ const customConfig = {
   resolver: {
     assetExts: assetExts.filter((ext) => ext !== 'svg'),
     sourceExts: [...sourceExts, 'svg'],
-    blockList: exclusionList([/^(?!.*node_modules).*\/dist\/.*/]),
-    unstable_enableSymlinks: true,
-    unstable_enablePackageExports: true,
-    extraNodeModules: {
-      '@jaqua/project.de/graphql': path.resolve(workspaceRoot, 'libs/project.de/util/graphql/src')
-    }
 
+    extraNodeModules: {
+      '@jaqua/project.de/graphql': path.resolve(
+        workspaceRoot,
+        'libs/project.de/util/graphql/src'
+      )
+    }
   }
 }
 
