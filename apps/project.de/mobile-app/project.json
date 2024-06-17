@@ -7,7 +7,10 @@
   "targets": {
     "build": {
       "executor": "@nx/expo:build",
-      "options": {}
+      "options": {
+        "clearCache": true,
+        "local": true
+      }
     },
     "build-list": {
       "executor": "@nx/expo:build-list",
@@ -51,7 +54,11 @@
     "prebuild": {
       "dependsOn": ["ensure-symlink", "sync-deps"],
       "executor": "@nx/expo:prebuild",
-      "options": {}
+      "options": {
+        "clean": true,
+        "install": true,
+        "platform": "all"
+      }
     },
     "run-android": {
       "dependsOn": ["ensure-symlink", "sync-deps"],
