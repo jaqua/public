@@ -26,7 +26,7 @@
     "serve:editor": "nx serve project.de-editor",
     "serve:main": "nx serve project.de-main",
     "serve:mobile-app": "nx start project.de-mobile-app",
-    "serve:mobile-app-android": "nx run-android project.de-mobile-app",
+    "serve:mobile-app-expo": "cd apps/project.de/mobile-app && npx expo start",
     "dev": "npm-run-all -l -p serve:api serve:editor serve:main",
     "typing": "npx graphql-codegen --config tools/scripts/typings/codegen.ts project.de",
     "typing:shared": "npx graphql-codegen --config tools/scripts/typings/codegen.ts shared"
@@ -254,7 +254,7 @@
     "stylus": "0.59.0",
     "stylus-loader": "^7.1.0",
     "supertest": "^6.3.3",
-    "tailwindcss": "3.4.3",
+    "tailwindcss": "^3.3.2",
     "ts-jest": "29.1.0",
     "ts-morph": "^13.0.2",
     "ts-node": "10.9.1",
